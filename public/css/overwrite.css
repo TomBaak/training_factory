@@ -1,0 +1,25 @@
+.nav a{
+    text-decoration: underline;
+}
+
+.container-nav, .container-header{
+    width: 95% !important;
+}
+
+.container-nav{
+    margin: 0 auto !important;
+}
+
+.container-header hr{
+    margin: 0.5% 0 0 0 !important;
+    clear: both !important;
+}
+
+.container-header{
+    margin: 1% auto 0 auto !important;
+}
+
+.container-header > h1{
+    font-family: 'Black Ops One', cursive !important;
+    margin-left: 2%;
+}
