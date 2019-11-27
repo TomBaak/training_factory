@@ -1,0 +1,170 @@
+<?php //%255BApp%255CEntity%255CUser%2524CLASSMETADATA%255D%255B1%255D
+
+namespace Symfony\Component\VarExporter\Internal;
+
+return $getExpiry ? PHP_INT_MAX : Hydrator::hydrate(
+    $o = [
+        clone (($p = &Registry::$prototypes)['Doctrine\\ORM\\Mapping\\ClassMetadata'] ?? Registry::p('Doctrine\\ORM\\Mapping\\ClassMetadata')),
+        clone ($p['Doctrine\\ORM\\Id\\IdentityGenerator'] ?? Registry::p('Doctrine\\ORM\\Id\\IdentityGenerator')),
+    ],
+    null,
+    [
+        'stdClass' => [
+            'name' => [
+                'App\\Entity\\User',
+            ],
+            'namespace' => [
+                'App\\Entity',
+            ],
+            'rootEntityName' => [
+                'App\\Entity\\User',
+            ],
+            'customRepositoryClassName' => [
+                'App\\Repository\\UserRepository',
+            ],
+            'identifier' => [
+                [
+                    'id',
+                ],
+            ],
+            'generatorType' => [
+                4,
+            ],
+            'fieldMappings' => [
+                [
+                    'id' => [
+                        'fieldName' => 'id',
+                        'type' => 'integer',
+                        'scale' => 0,
+                        'length' => null,
+                        'unique' => false,
+                        'nullable' => false,
+                        'precision' => 0,
+                        'id' => true,
+                        'columnName' => 'id',
+                    ],
+                    'username' => [
+                        'fieldName' => 'username',
+                        'type' => 'string',
+                        'scale' => 0,
+                        'length' => 255,
+                        'unique' => false,
+                        'nullable' => false,
+                        'precision' => 0,
+                        'columnName' => 'username',
+                    ],
+                    'password' => [
+                        'fieldName' => 'password',
+                        'type' => 'string',
+                        'scale' => 0,
+                        'length' => 255,
+                        'unique' => false,
+                        'nullable' => false,
+                        'precision' => 0,
+                        'columnName' => 'password',
+                    ],
+                    'roles' => [
+                        'fieldName' => 'roles',
+                        'type' => 'json',
+                        'scale' => 0,
+                        'length' => null,
+                        'unique' => false,
+                        'nullable' => false,
+                        'precision' => 0,
+                        'columnName' => 'roles',
+                    ],
+                    'name' => [
+                        'fieldName' => 'name',
+                        'type' => 'string',
+                        'scale' => 0,
+                        'length' => 255,
+                        'unique' => false,
+                        'nullable' => false,
+                        'precision' => 0,
+                        'columnName' => 'name',
+                    ],
+                    'salaris' => [
+                        'fieldName' => 'salaris',
+                        'type' => 'decimal',
+                        'scale' => 2,
+                        'length' => null,
+                        'unique' => false,
+                        'nullable' => false,
+                        'precision' => 10,
+                        'columnName' => 'salaris',
+                    ],
+                ],
+            ],
+            'fieldNames' => [
+                [
+                    'id' => 'id',
+                    'username' => 'username',
+                    'password' => 'password',
+                    'roles' => 'roles',
+                    'name' => 'name',
+                    'salaris' => 'salaris',
+                ],
+            ],
+            'columnNames' => [
+                [
+                    'id' => 'id',
+                    'username' => 'username',
+                    'password' => 'password',
+                    'roles' => 'roles',
+                    'name' => 'name',
+                    'salaris' => 'salaris',
+                ],
+            ],
+            'table' => [
+                [
+                    'name' => 'user',
+                ],
+            ],
+            'associationMappings' => [
+                [
+                    'afdeling' => [
+                        'fieldName' => 'afdeling',
+                        'joinColumns' => [
+                            [
+                                'name' => 'afdeling_id',
+                                'unique' => false,
+                                'nullable' => false,
+                                'onDelete' => null,
+                                'columnDefinition' => null,
+                                'referencedColumnName' => 'id',
+                            ],
+                        ],
+                        'cascade' => [],
+                        'inversedBy' => 'users',
+                        'targetEntity' => 'App\\Entity\\Afdeling',
+                        'fetch' => 2,
+                        'type' => 2,
+                        'mappedBy' => null,
+                        'isOwningSide' => true,
+                        'sourceEntity' => 'App\\Entity\\User',
+                        'isCascadeRemove' => false,
+                        'isCascadePersist' => false,
+                        'isCascadeRefresh' => false,
+                        'isCascadeMerge' => false,
+                        'isCascadeDetach' => false,
+                        'sourceToTargetKeyColumns' => [
+                            'afdeling_id' => 'id',
+                        ],
+                        'joinColumnFieldNames' => [
+                            'afdeling_id' => 'afdeling_id',
+                        ],
+                        'targetToSourceKeyColumns' => [
+                            'id' => 'afdeling_id',
+                        ],
+                        'orphanRemoval' => false,
+                    ],
+                ],
+            ],
+            'idGenerator' => [
+                $o[1],
+            ],
+        ],
+    ],
+    $o[0],
+    []
+);

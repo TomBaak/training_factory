@@ -1,0 +1,16 @@
+5183c4,127.0.0.1,GET,http://localhost:8000/update/2,1574686674,15eb86,500
+15eb86,127.0.0.1,GET,http://localhost:8000/update/2,1574686674,,500
+9adf81,127.0.0.1,GET,http://localhost:8000/update/2,1574686714,8c3295,500
+8c3295,127.0.0.1,GET,http://localhost:8000/update/2,1574686714,,500
+7a3c0b,127.0.0.1,GET,http://localhost:8000/update/2,1574686722,,200
+c43279,127.0.0.1,GET,http://localhost:8000/update/1,1574686731,7a9252,500
+7a9252,127.0.0.1,GET,http://localhost:8000/update/1,1574686731,,500
+9f5860,127.0.0.1,GET,http://localhost:8000/update/2,1574686738,,200
+928784,127.0.0.1,GET,http://localhost:8000/getNoAfdeling,1574687271,650745,500
+650745,127.0.0.1,GET,http://localhost:8000/getNoAfdeling,1574687271,,500
+69e087,127.0.0.1,GET,http://localhost:8000/getNoAfdeling,1574687366,0148a0,500
+0148a0,127.0.0.1,GET,http://localhost:8000/getNoAfdeling,1574687366,,500
+3e977e,127.0.0.1,GET,http://localhost:8000/getNoAfdeling,1574687549,,200
+3b420b,127.0.0.1,GET,http://localhost:8000/getNoAfdeling,1574687652,34ec23,500
+34ec23,127.0.0.1,GET,http://localhost:8000/getNoAfdeling,1574687653,,500
+b7596e,127.0.0.1,GET,http://localhost:8000/getNoAfdeling,1574687671,,200
