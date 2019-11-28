@@ -1,35 +1,52 @@
-.nav a{
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.nav a {
     text-decoration: underline;
 }
 
-.container-nav, .container-header, .container-95{
+.container-nav, .container-header, .container-95 {
     width: 95% !important;
 }
 
-.container-nav{
+.container-nav {
     margin: 0 auto !important;
 }
 
-.container-header hr{
+.container-header hr {
     margin: 0.5% 0 0 0 !important;
     clear: both !important;
 }
 
-.container-header{
+.container-header {
     margin: 1% auto 0 auto !important;
 }
 
-.container-header > h1{
+.container-header > h1 {
     font-family: 'Black Ops One', cursive !important;
     margin-left: 2%;
 }
 
-.img_banner img{
+.img_banner img {
     width: 80%;
     max-height: 250px;
     margin: 0 10px;
 }
 
-.img_banner{
+.img_banner {
     display: flex;
+}
+
+footer {
+    clear: both;
+    position: relative;
+    height: 80px;
+    margin-top: auto;
 }
