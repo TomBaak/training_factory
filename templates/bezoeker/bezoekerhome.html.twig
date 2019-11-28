@@ -1,32 +1,25 @@
-{% extends "layout.html.twig" %}
+{% extends "base.html.twig" %}
 
+{% block body %}
 
-{% block nav %}
-    <div class="container-nav">
-        <nav class="navbar navbar-expand-lg">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
-                    aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link active text-primary" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Trainings Aanbod</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Lid worden</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Gedragsregels</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Lokatie & Contact</a>
-                    </li>
-                </ul>
+    <div class="container container-95 border m-auto p-3">
+
+        <div class="container-95 p-3 m-auto">
+            <div class="row justify-content-center img_banner">
+                <img class="col-4" src="{{ asset('img/banner1.jpg') }}">
+                <img class="col-4" src="{{ asset('img/banner2.jpg') }}">
+                <img class="col-4" src="{{ asset('img/banner3.jpg') }}">
             </div>
-        </nav>
+        </div>
+
+        <div class="container  w-75 m-auto p-4">
+            <h3 class="text-primary  font-weight-bold">Welkom bij Trainings Centrum Den Haag</h3>
+            <p>Den Haag Training Center is een sportschool waar onder professionele begeleiding in een veilige omgeving
+                verschillende soorten martial arts-, indoor bootcamp,
+                personal- en small group trainingen worden aangeboden. Hier kan je je inschrijven op een les of
+                uitschrijven op een les.</p>
+        </div>
+
     </div>
+
 {% endblock %}

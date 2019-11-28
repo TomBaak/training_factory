@@ -2,7 +2,7 @@
     text-decoration: underline;
 }
 
-.container-nav, .container-header{
+.container-nav, .container-header, .container-95{
     width: 95% !important;
 }
 
@@ -22,4 +22,14 @@
 .container-header > h1{
     font-family: 'Black Ops One', cursive !important;
     margin-left: 2%;
+}
+
+.img_banner img{
+    width: 80%;
+    max-height: 250px;
+    margin: 0 10px;
+}
+
+.img_banner{
+    display: flex;
 }
