@@ -16,7 +16,7 @@
          */
         public function home()
         {
-            return $this->render('bezoeker/bezoekerhome.html.twig');
+            return $this->render('bezoeker.html.twig');
         }
 
         /**
@@ -28,7 +28,7 @@
             $trainingen = $this->getDoctrine()->getRepository(Training::class)->findAll();
 
 
-            return $this->render('bezoeker/bezoeker_trainings_aanbod.html.twig', [
+            return $this->render('bezoeker/trainingsAanbod.html.twig', [
 
                 'trainings' => $trainingen,
 
@@ -43,7 +43,7 @@
          */
         public function contact()
         {
-            return $this->render('bezoeker/bezoeker_lokatie_contact.html.twig');
+            return $this->render('bezoeker/locatieContact.html.twig');
         }
 	
 		/**
@@ -51,7 +51,7 @@
 		 */
 		public function rules()
 		{
-			return $this->render('bezoeker/bezoeker_gedrags_regels.html.twig');
+			return $this->render('bezoeker/gedragsRegels.html.twig');
 		}
 
     }

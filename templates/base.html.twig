@@ -11,18 +11,9 @@
     <div class="container-header">
         <img class="float-left" src="{{ asset('img/logo.png') }}" width="10%">
         <h1 class="float-left">Training Centrum Den Haag</h1>
-        <form class="float-right p-2">
-            <div class="form-group">
-                <input type="email" class="form-control" id="username" placeholder="Username">
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control" id="password" placeholder="Wachtwoord">
-            </div>
             <div class="float-right">
-                <button type="submit" class="btn btn-primary">Log in</button>
-                <a href="#" class="btn btn-primary">Reset ww</a>
+                <a href="{{ path('login') }}" class="btn btn-primary">Log in</a>
             </div>
-        </form>
         <hr class="border-primary">
     </div>
 {% endblock %}
@@ -51,7 +42,7 @@
                         <a class="nav-link" href="{{ path('rules') }}">Gedragsregels</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('contact') }}">Lokatie & Contact</a>
+                        <a class="nav-link" href="{{ path('contact') }}">Locatie & Contact</a>
                     </li>
                 </ul>
             </div>

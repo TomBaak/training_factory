@@ -18,7 +18,19 @@ class PersonRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Person::class);
     }
-
+	
+	public function loadUserByUsername($username)
+	{
+		return $this->createQuery(
+			'SELECT u
+                FROM App\Entity\User u
+                WHERE u.username = :query'
+		)
+			->setParameter('query', $username)
+			->getQuery()
+			->getOneOrNullResult();
+	}
+	
     // /**
     //  * @return Person[] Returns an array of Person objects
     //  */
