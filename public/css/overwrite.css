@@ -44,9 +44,31 @@ body {
     display: flex;
 }
 
+@media all and (max-width: 600px) {
+    .img_banner {
+        display: none;
+    }
+    .w-75{
+        width: 100% !important;
+    }
+    .td_desc{
+        display: none;
+    }
+}
+
+@media all and (max-width: 1000px) {
+    .container-header img{
+        display: none;
+    }
+}
+
 footer {
     clear: both;
     position: relative;
     height: 80px;
     margin-top: auto;
+}
+
+ol{
+
 }

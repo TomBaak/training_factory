@@ -45,5 +45,13 @@
         {
             return $this->render('bezoeker/bezoeker_lokatie_contact.html.twig');
         }
+	
+		/**
+		 * @Route("/rules", name="rules")
+		 */
+		public function rules()
+		{
+			return $this->render('bezoeker/bezoeker_gedrags_regels.html.twig');
+		}
 
     }

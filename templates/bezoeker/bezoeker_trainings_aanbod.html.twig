@@ -1,44 +1,21 @@
 {% extends "base.html.twig" %}
 
-
 {% block title %}
     Training Aanbod
 {% endblock %}
 
 {% block body %}
-    <div class="container-95 border m-auto p-3">
 
-        <div class="container-95 p-3 m-auto">
-            <div class="row justify-content-center img_banner">
-                <img class="col-4" src="{{ asset('img/banner1.jpg') }}">
-                <img class="col-4" src="{{ asset('img/banner2.jpg') }}">
-                <img class="col-4" src="{{ asset('img/banner3.jpg') }}">
-            </div>
-        </div>
+    <h4 class="text-primary">Trainingen</h4>
 
-        <div class="container border w-75 m-auto p-3">
-            <table class="table table-striped w-75 m-auto">
-                <thead class="text-primary">
-                <tr>
-                    <th scope="col">Training:</th>
-                    <th scope="col">Beschrijving:</th>
-                    <th scope="col">Duur:</th>
-                    <th scope="col">Kosten:</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for training in trainings %}
-                    <tr>
-                        <th>{{ training.name }}</th>
-                        <td class="td_desc">{{ training.description }}</td>
-                        <td>{{ training.duration }} minuten</td>
-                        <td>{% if training.costs %}&euro;{{ training.costs }}{% else %}Gratis{% endif %}</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
+            {% for training in trainings %}
+                <h4>{{ training.name }}</h4>
+                <p class="td_desc">{{ training.description }}</p>
+                <p><span class="font-weight-bold">Lengte:</span> {{ training.duration }} minuten</p>
+                <p><span class="font-weight-bold">Kosten:</span> {% if training.costs %}&euro;{{ training.costs }}{% else %}Gratis{% endif %}</p>
+                <hr>
+            {% endfor %}
 
-            </table>
-        </div>
-    </div>
+
 
 {% endblock %}

@@ -82,6 +82,11 @@ class Person
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $place;
+	
+	/**
+	 * @ORM\Column(type="json")
+	 */
+	private $roles = [];
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\lesson", mappedBy="instructor")
@@ -259,6 +264,15 @@ class Person
 
         return $this;
     }
+	
+	public function getRoles(): array
+	{
+		$roles = $this->roles;
+		// guarantee every user at least has ROLE_USER
+		$roles[] = 'ROLE_USER';
+		
+		return array_unique($roles);
+	}
 
     /**
      * @return Collection|lesson[]
