@@ -17,38 +17,6 @@
         <hr class="border-primary">
     </div>
 {% endblock %}
-{#TODO: Make nav items highlight when selected#}
-{% block nav %}
-    <div class="container-nav">
-        <nav class="navbar navbar-dark navbar-expand-lg">
-            <button class="navbar-toggler bg-dark" type="button" data-toggle="collapse"
-                    data-target="#navbarTogglerDemo01"
-                    aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            {#            TODO: Fix collapse#}
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link text-primary " href="{{ path('home') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('trainingen') }}">Trainings Aanbod</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Lid worden</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('rules') }}">Gedragsregels</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('contact') }}">Locatie & Contact</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-{% endblock %}
 
 {% block base_container %}
     <div class="container container-95 border m-auto p-3">

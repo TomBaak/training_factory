@@ -16,7 +16,7 @@
          */
         public function home()
         {
-            return $this->render('bezoeker.html.twig');
+            return $this->render('bezoeker/home.html.twig');
         }
 
         /**
@@ -53,5 +53,36 @@
 		{
 			return $this->render('bezoeker/gedragsRegels.html.twig');
 		}
-
+	
+		/**
+		 * @Route("/trainer", name="trainer")
+		 */
+		public function trainer()
+		{
+			return $this->render('trainer/home.html.twig');
+		}
+	
+		/**
+		 * @Route("/trainer/trainingen", name="trainer_trainingen")
+		 */
+		public function trainerTrainingen()
+		{
+			$trainingen = $this->getDoctrine()->getRepository(Training::class)->findAll();
+			
+			
+			return $this->render('trainer/trainingsAanbod.html.twig', [
+				
+				'trainings' => $trainingen,
+			
+			
+			]);
+		}
+	
+		/**
+		 * @Route("/trainer/newTraining", name="trainer_newTraining")
+		 */
+		public function newTraining()
+		{
+			return $this->render('trainer\nieuweTraining.hmtl.twig');
+		}
     }

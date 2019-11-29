@@ -177,7 +177,7 @@
 			return $this->dateofbirth;
 		}
 		
-		public function setDateofbirth(\DateTimeInterface $dateofbirth): self
+		public function setDateofbirth(\DateTime $dateofbirth): self
 		{
 			$this->dateofbirth = $dateofbirth;
 			

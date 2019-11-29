@@ -1,4 +1,4 @@
-{% extends "bezoeker.html.twig" %}
+{% extends "trainer.html.twig" %}
 
 {% block title %}
     Training Aanbod
@@ -6,6 +6,8 @@
 
 {% block body %}
 
+    <a class="btn btn-success mt-2 mb-2 w-100" href="{{ path('trainer_newTraining') }}">Nieuwe Training</a>
+    <hr>
     <h3 class="text-primary">Trainingen</h3>
     <hr>
 
@@ -14,6 +16,8 @@
                 <p class="td_desc">{{ training.description }}</p>
                 <p><span class="font-weight-bold">Lengte:</span> {{ training.duration }} minuten</p>
                 <p><span class="font-weight-bold">Kosten:</span> {% if training.costs %}&euro;{{ training.costs }}{% else %}Gratis{% endif %}</p>
+                <a class="btn btn-danger" href="'test/{{ training.id }}'">Verwijder</a>
+                <a class="btn btn-warning text-white" href="'test/{{ training.id }}'">Wijzig</a>
                 <hr>
             {% endfor %}
 
