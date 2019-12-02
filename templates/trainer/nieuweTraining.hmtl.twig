@@ -1,1 +1,12 @@
 {% extends "trainer.html.twig" %}
+
+{% block body %}
+
+    {{ form_start(afdelingForm,{'attr': {'novalidate':'novalidate'}}) }}
+    {{ form_widget(afdelingForm) }}
+
+    <input type="submit" class="btn btn-success" value="Voeg Training Toe">
+
+    {{ form_end(afdelingForm) }}
+
+{% endblock %}
