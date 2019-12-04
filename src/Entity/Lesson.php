@@ -50,7 +50,7 @@ class Lesson
     private $lesson;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\training", inversedBy="training")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Training", inversedBy="training")
      * @ORM\JoinColumn(nullable=false)
      */
     private $training;
@@ -65,9 +65,9 @@ class Lesson
         return $this->id;
     }
 
-    public function getTime(): ?\DateTimeInterface
+    public function getTime(): string
     {
-        return $this->time;
+        return $this->time->format('H:i');
     }
 
     public function setTime(\DateTimeInterface $time): self
@@ -77,9 +77,9 @@ class Lesson
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDate(): string
     {
-        return $this->date;
+        return $this->date->format('Y-m-d');
     }
 
     public function setDate(\DateTimeInterface $date): self

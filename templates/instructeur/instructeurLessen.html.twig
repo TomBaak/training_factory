@@ -1,0 +1,26 @@
+{% extends "instructeur.html.twig" %}
+
+{% block title %}
+    Lessen
+{% endblock %}
+
+{% block body %}
+
+    <a class="btn btn-success mt-2 mb-2 w-100" href="#">Nieuwe les</a>
+    <hr>
+    <h3 class="text-secondary">Lessen</h3>
+    <hr>
+
+    {% for les in lessen %}
+        <h4>{{ les.training.name }}</h4>
+        <p><span class="font-weight-bold">Datum:</span> {{ les.date }}</p>
+        <p><span class="font-weight-bold">Tijd:</span> {{ les.time }}</p>
+        <p><span class="font-weight-bold">Maximaal aantal personen:</span> {{ les.maxPersons }}</p>
+        <p><span class="font-weight-bold">Locatie:</span> {{ les.location }}</p>
+        <p><span class="font-weight-bold">Instructeur:</span> {{ les.instructor.firstname }} {{ les.instructor.lastname }}</p>
+        <hr>
+    {% endfor %}
+
+
+
+{% endblock %}

@@ -16,22 +16,22 @@
 	{
 		
 		/**
-		 * @Route("/trainer", name="trainer")
+		 * @Route("/administratie", name="administratie")
 		 */
 		public function trainer()
 		{
-			return $this->render('trainer/home.html.twig');
+			return $this->render('administratie/home.html.twig');
 		}
 		
 		/**
-		 * @Route("/trainer/training/overview", name="trainer_trainingen")
+		 * @Route("/administratie/training/overview", name="administratie_trainingen")
 		 */
 		public function trainerTrainingen()
 		{
 			$trainingen = $this->getDoctrine()->getRepository(Training::class)->findAll();
 			
 			
-			return $this->render('trainer/trainingsAanbod.html.twig', [
+			return $this->render('administratie/trainingsAanbod.html.twig', [
 				
 				'trainings' => $trainingen,
 			
@@ -40,7 +40,7 @@
 		}
 		
 		/**
-		 * @Route("/trainer/training/new", name="trainer_newTraining")
+		 * @Route("/administratie/training/new", name="administratie_newTraining")
 		 */
 		public function newTraining(Request $request, EntityManagerInterface $em)
 		{
@@ -54,15 +54,15 @@
 				$em->persist($training);
 				$em->flush();
 				
-				return $this->redirectToRoute('trainer_trainingen');
+				return $this->redirectToRoute('administratie_trainingen');
 			}
 			
-			return $this->render('trainer\trainingNew.html.twig',
+			return $this->render('administratie\trainingNew.html.twig',
 				['trainingForm' => $form->createView()]);
 		}
 		
 		/**
-		 * @Route("trainer/training/edit/{id}", name="edit_training")
+		 * @Route("administratie/training/edit/{id}", name="edit_training")
 		 */
 		public function updateTraining(Training $training, $id, Request $request, EntityManagerInterface $em){
 			
@@ -82,10 +82,10 @@
 				$em->persist($training);
 				$em->flush();
 				
-				return $this->redirectToRoute('trainer_trainingen');
+				return $this->redirectToRoute('administratie_trainingen');
 			}
 			
-			return $this->render('trainer/trainingEdit.html.twig', [
+			return $this->render('administratie/trainingEdit.html.twig', [
 				
 				'training_current' => $training,
 				'trainingForm' => $form->createView(),
@@ -95,7 +95,7 @@
 		}
 		
 		/**
-		 * @Route("trainer/training/remove/{id}", name="delete_training")
+		 * @Route("administratie/training/remove/{id}", name="delete_training")
 		 */
 		public function deleteTraining($id, EntityManagerInterface $em){
 			
@@ -104,7 +104,7 @@
 			$em->remove($training);
 			$em->flush();
 			
-			return $this->redirectToRoute('trainer_trainingen');
+			return $this->redirectToRoute('administratie_trainingen');
 			
 			
 		}
