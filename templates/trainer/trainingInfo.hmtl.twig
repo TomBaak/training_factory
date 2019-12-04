@@ -1,9 +1,0 @@
-{% extends "trainer.html.twig" %}
-
-<form>
-    <input class="form-control" value="{{ training_title }}" type="text" placeholder="Naam">
-    <textarea class="form-control" value="{{ training_description }}" placeholder="Beschrijving"></textarea>
-    <input class="form-control" value="{{ training_title }}" type="number" placeholder="Duur">
-    <input class="form-control" value="{% if training_costs %}&euro;{{ training.costs }}{% endif %}" type="number" step="2" placeholder="Kosten">
-</form>
-

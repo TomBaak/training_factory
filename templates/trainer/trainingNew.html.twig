@@ -1,0 +1,36 @@
+{% extends "trainer.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+{% endblock %}
+
+{% block body %}
+
+
+
+    {{ form_start(trainingForm,{'attr': {'novalidate':'novalidate'}}) }}
+    <div class="text-danger">
+        {{ form_errors(trainingForm) }}
+    </div>
+    <div class="row">
+        {{ form_row(trainingForm.name) }}
+    </div>
+
+    <div class="row">
+        {{ form_row(trainingForm.description) }}
+    </div>
+    <div class="row">
+        {{ form_row(trainingForm.duration) }}
+        <p class="text-muted">Tijd in minuten</p>
+    </div>
+    <div class="row">
+        {{ form_row(trainingForm.costs) }}
+        <p class="text-muted">Wanneer de training gratis is vul niks in</p>
+    </div>
+
+    <input type="submit" class="btn btn-success w-100" value="Voeg Training Toe">
+
+    {{ form_widget(trainingForm) }}
+
+{% endblock %}

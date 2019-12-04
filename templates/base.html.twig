@@ -11,10 +11,19 @@
     <div class="container-header">
         <img class="float-left" src="{{ asset('img/logo.png') }}" width="10%">
         <h1 class="float-left">Training Centrum Den Haag</h1>
-            <div class="float-right">
-                <a href="{{ path('login') }}" class="btn btn-primary">Log in</a>
+        <form class="float-right p-2">
+            <div class="form-group">
+                <input type="email" class="form-control" id="username" placeholder="Username">
             </div>
-        <hr class="border-primary">
+            <div class="form-group">
+                <input type="password" class="form-control" id="password" placeholder="Wachtwoord">
+            </div>
+            <div class="float-right">
+                <button type="submit" class="btn btn-secondary">Log in</button>
+                <a href="#" class="btn btn-secondary">Reset ww</a>
+            </div>
+        </form>
+        <hr class="border-secondary">
     </div>
 {% endblock %}
 
@@ -22,7 +31,8 @@
     <div class="container container-95 border m-auto p-3">
         {% block banner %}
             <div class="container-95 p-3 m-auto img_banner">
-                <div class="row justify-content-center img_banner">
+{#                TODO: Fix streched img's#}
+                <div class="row justify-content-center w-100 img_banner">
                     <img class="col-4" src="{{ asset('img/banner1.jpg') }}">
                     <img class="col-4" src="{{ asset('img/banner2.jpg') }}">
                     <img class="col-4" src="{{ asset('img/banner3.jpg') }}">
@@ -38,7 +48,7 @@
 
 {% block footer %}
     <footer class="bg-dark w-100 text-center p-2 mt-4">
-        <p class="text-primary">Training Centrum Den Haag - 010 519 0532</p>
+        <p class="text-secondary">Training Centrum Den Haag - 010 519 0532</p>
         <p class="text-white mb-0">Developed by FastDevelop 2019</p>
     </footer>
 {% endblock %}

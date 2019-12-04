@@ -8,15 +8,15 @@
 
     <a class="btn btn-success mt-2 mb-2 w-100" href="{{ path('trainer_newTraining') }}">Nieuwe Training</a>
     <hr>
-    <h3 class="text-primary">Trainingen</h3>
+    <h3 class="text-secondary">Trainingen</h3>
     <hr>
 
             {% for training in trainings %}
                 <h4>{{ training.name }}</h4>
                 <p><span class="font-weight-bold">Lengte:</span> {{ training.duration }} minuten</p>
                 <p><span class="font-weight-bold">Kosten:</span> {% if training.costs %}&euro;{{ training.costs }}{% else %}Gratis{% endif %}</p>
-                <a class="btn btn-danger" href="'test/{{ training.id }}'">Verwijder</a>
-                <a class="btn btn-warning text-white" href="'test/{{ training.id }}'">Wijzig</a>
+                <a class="btn btn-danger" href="{{ path('delete_training', {'id': training.id}) }}">Verwijder</a>
+                <a class="btn btn-warning text-white" href="{{ path('edit_training', {'id': training.id}) }}">Wijzig</a>
                 <hr>
             {% endfor %}
 

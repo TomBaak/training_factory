@@ -62,6 +62,10 @@ body {
     }
 }
 
+textarea {
+    min-height: 50px !important;
+}
+
 footer {
     clear: both;
     position: relative;
