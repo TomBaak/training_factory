@@ -1,0 +1,20 @@
+{% extends "instructeur.html.twig" %}
+
+{% block title %}
+    Nieuwe Les
+{% endblock %}
+
+{% block body %}
+
+    <h1 class="text-success">Nieuwe les</h1>
+
+    {{ form_start(lessonForm,{'attr': {'novalidate':'novalidate'}}) }}
+
+    <input type="submit" class="btn btn-success w-100" value="Voeg les Toe">
+
+    {{ form_end(lessonForm) }}
+    {{ form_widget(lessonForm) }}
+
+
+
+{% endblock %}

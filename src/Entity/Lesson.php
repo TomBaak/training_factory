@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Lesson
 {
+	
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -27,11 +28,6 @@ class Lesson
      * @ORM\Column(type="date")
      */
     private $date;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $location;
 
     /**
      * @ORM\Column(type="integer")
@@ -55,6 +51,12 @@ class Lesson
      */
     private $training;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Location", inversedBy="location_id")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $location;
+
     public function __construct()
     {
         $this->lesson = new ArrayCollection();
@@ -65,9 +67,9 @@ class Lesson
         return $this->id;
     }
 
-    public function getTime(): string
+    public function getTime(): ?\DateTimeInterface
     {
-        return $this->time->format('H:i');
+        return $this->time;
     }
 
     public function setTime(\DateTimeInterface $time): self
@@ -77,9 +79,9 @@ class Lesson
         return $this;
     }
 
-    public function getDate(): string
+    public function getDate(): ?\DateTimeInterface
     {
-        return $this->date->format('Y-m-d');
+        return $this->date;
     }
 
     public function setDate(\DateTimeInterface $date): self
@@ -91,7 +93,7 @@ class Lesson
 
     public function getLocation(): ?string
     {
-        return $this->location;
+        return $this->location->getStreet();
     }
 
     public function setLocation(string $location): self
@@ -164,6 +166,18 @@ class Lesson
     public function setTraining(?training $training): self
     {
         $this->training = $training;
+
+        return $this;
+    }
+
+    public function getLocationId(): ?Location
+    {
+        return $this->location;
+    }
+
+    public function setLocationId(?Location $location): self
+    {
+        $this->location = $location;
 
         return $this;
     }

@@ -97,7 +97,7 @@
 		private $lesson;
 		
 		/**
-		 * @ORM\OneToMany(targetEntity="App\Entity\registration", mappedBy="member")
+		 * @ORM\OneToMany(targetEntity="App\Entity\Registration", mappedBy="member")
 		 */
 		private $registration;
 		
