@@ -92,7 +92,7 @@
 		private $roles = [];
 		
 		/**
-		 * @ORM\OneToMany(targetEntity="App\Entity\lesson", mappedBy="instructor")
+		 * @ORM\OneToMany(targetEntity="App\Entity\Lesson", mappedBy="instructor")
 		 */
 		private $lesson;
 		

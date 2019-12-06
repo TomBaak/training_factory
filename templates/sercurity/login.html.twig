@@ -1,20 +1,30 @@
-{% extends 'base.html.twig' %}
+{% extends 'bezoeker.html.twig' %}
+
+{% block title %}
+Inloggen
+{% endblock %}
 
 {% block body %}
 
+    <h2 class="mb-3">Inloggen</h2>
+
     {% if error %}
-        <span class="text-danger">{{ error.messageKey }}</span>
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-    <form action="{{ path('login') }}" method="post" class="">
+    <form method="post">
         <div class="form-group">
-            <input type="text" class="form-control" name="_username" placeholder="Username" value="">
+            <input type="text" class="form-control" name="email" placeholder="Username" value="">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" name="_password" placeholder="Password" value="">
+            <input type="password" class="form-control" name="password" placeholder="Password" value="">
         </div>
-            <button type="submit" class="btn btn-primary">Log in</button>
-            <a href="#" class="btn btn-primary">Reset ww</a>
+        <div class="custom-control custom-checkbox mb-3">
+            <input type="checkbox" class="custom-control-input" id="customCheck1" value="remember-me">
+            <label class="custom-control-label" for="customCheck1">Ingelogd blijven</label>
+        </div>
+            <button type="submit" class="btn btn-secondary">Log in</button>
+            <a href="#" class="btn btn-secondary">Reset ww</a>
     </form>
     </div>
 
