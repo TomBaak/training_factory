@@ -53,4 +53,12 @@
 		{
 			return $this->render('bezoeker/gedragsRegels.html.twig');
 		}
+	
+		/**
+		 * @Route("/noAccess", name="noAccess")
+		 */
+		public function noAccess()
+		{
+			return $this->render('noAccess.html.twig');
+		}
     }

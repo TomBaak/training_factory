@@ -46,7 +46,11 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function checkCredentials($credentials, UserInterface $user)
     {
-		return true;
+		if($credentials['password'] == $user->getPassword()){
+			return true;
+		}else{
+			return false;
+		};
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
@@ -61,7 +65,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        // todo
+		return new RedirectResponse($this->router->generate('noAccess'));
     }
 
     public function supportsRememberMe()
@@ -76,6 +80,6 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 	 */
 	protected function getLoginUrl()
 	{
-		return $this->router->generate('app_login');
+		return $this->router->generate('login');
 	}
 }
