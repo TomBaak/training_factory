@@ -5,6 +5,7 @@
 	
 	
 	use App\Entity\Lesson;
+	use App\Entity\Person;
 	use App\Form\LessonType;
 	use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 	use Doctrine\ORM\EntityManagerInterface;
@@ -27,7 +28,13 @@
 		 */
 		public function instructeur()
 		{
-			return $this->render('instructeur/home.html.twig');
+			$user = $this->getDoctrine()->getRepository(Person::class)->findOneBy(array('loginname' => $this->session->get('user')->getLoginname()));
+			
+			return $this->render('instructeur/home.html.twig', [
+			
+				'name' => $user->getFirstname(),
+				
+			]);
 		}
 		
 		/**
@@ -54,7 +61,7 @@
 			
 			$form->handleRequest($request);
 			
-			if($form->isSubmitted() && $form->isValid()){
+			if ($form->isSubmitted() && $form->isValid()) {
 				$lesson = $form->getData();
 				
 				$em->persist($lesson);
@@ -70,11 +77,12 @@
 		/**
 		 * @Route("/instructeur/lessen/edit/{id}", name="edit_lesson")
 		 */
-		public function updateTraining(Lesson $lesson, $id, Request $request, EntityManagerInterface $em){
+		public function updateTraining(Lesson $lesson, $id, Request $request, EntityManagerInterface $em)
+		{
 			
 			$lesson_current = $this->getDoctrine()->getRepository(Lesson::class)->findOneBy(array('id' => $id));
 			
-			if($lesson == NULL){
+			if ($lesson == NULL) {
 				return $this->redirectToRoute('instructeur_lessen');
 			}
 			
@@ -82,7 +90,7 @@
 			
 			$form->handleRequest($request);
 			
-			if($form->isSubmitted() && $form->isValid()){
+			if ($form->isSubmitted() && $form->isValid()) {
 				$lesson = $form->getData();
 				
 				$em->persist($lesson);
@@ -103,7 +111,8 @@
 		/**
 		 * @Route("/instructeur/lessen/remove/{id}", name="delete_lesson")
 		 */
-		public function deleteTraining($id, EntityManagerInterface $em){
+		public function deleteTraining($id, EntityManagerInterface $em)
+		{
 			
 			$lesson = $this->getDoctrine()->getRepository(Lesson::class)->findOneBy(array('id' => $id));
 			

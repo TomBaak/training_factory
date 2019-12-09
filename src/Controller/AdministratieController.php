@@ -10,17 +10,30 @@
 	use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 	use Symfony\Component\HttpFoundation\Request;
 	use Symfony\Component\HttpFoundation\Response;
+	use Symfony\Component\HttpFoundation\Session\SessionInterface;
 	use Symfony\Component\Routing\Annotation\Route;
 	
 	class AdministratieController extends AbstractController
 	{
+		private $session;
+		
+		public function __construct(SessionInterface $session)
+		{
+			$this->session = $session;
+		}
 		
 		/**
 		 * @Route("/administratie", name="administratie")
 		 */
 		public function trainer()
 		{
-			return $this->render('administratie/home.html.twig');
+			$user = $this->getDoctrine()->getRepository(Person::class)->findOneBy(array('loginname' => $this->session->get('user')->getLoginname()));
+			
+			return $this->render('administratie/home.html.twig', [
+				
+				'name' => $user->getFirstname(),
+			
+			]);
 		}
 		
 		/**
