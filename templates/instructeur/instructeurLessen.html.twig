@@ -13,13 +13,13 @@
 
     {% for les in lessen %}
         <h4>{{ les.training.name }}</h4>
-        <p><span class="font-weight-bold">Datum:</span> {{ les.date|date("Y/m/d") }}</p>
+        <p><span class="font-weight-bold">Datum:</span> {{ les.date|date("d-m-Y") }}</p>
         <p><span class="font-weight-bold">Tijd:</span> {{ les.time|date("H:i") }}</p>
         <p><span class="font-weight-bold">Locatie:</span> {{ les.location }}</p>
         <p><span class="font-weight-bold">Maximaal aantal personen:</span> {{ les.maxPersons }}</p>
         <p><span class="font-weight-bold">Instructeur:</span> {{ les.instructor.firstname }} {{ les.instructor.lastname }}</p>
-        <a class="btn btn-danger" href="#">Verwijder</a>
-        <a class="btn btn-warning text-white" href="#">Wijzig</a>
+        <a class="btn btn-danger" href="{{ path('delete_lesson', {'id': les.id}) }}">Verwijder</a>
+        <a class="btn btn-warning text-white" href="{{ path('edit_lesson', {'id': les.id}) }}">Wijzig</a>
         <hr>
     {% endfor %}
 

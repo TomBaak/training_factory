@@ -6,7 +6,7 @@
 
 {% block body %}
 
-    <h1 class="text-success">Nieuwe les</h1>
+    <h1 class="text-warning">Wijzig {{ lesson_current.training.name }} <span class="text-dark">{{ lesson_current.time|date("H:i") }} op {{ lesson_current.date|date("d-m-Y") }} op de {{ lesson_current.location }}</span></h1>
 
     {{ form_start(lessonForm,{'attr': {'novalidate':'novalidate'}}) }}
 
@@ -32,11 +32,9 @@
     <div class="row">
         {{ form_row(lessonForm.location_id) }}
     </div>
-    <input type="submit" class="btn btn-success w-100" value="Voeg les Toe">
+    <input type="submit" class="btn btn-warning w-100 text-white" value="Wijzig les">
 
     {{ form_end(lessonForm) }}
     {{ form_widget(lessonForm) }}
-
-
 
 {% endblock %}

@@ -10,10 +10,18 @@
 	use Doctrine\ORM\EntityManagerInterface;
 	use Symfony\Component\HttpFoundation\Request;
 	use Symfony\Component\HttpFoundation\Response;
+	use Symfony\Component\HttpFoundation\Session\SessionInterface;
 	use Symfony\Component\Routing\Annotation\Route;
 	
 	class InstructeurController extends AbstractController
 	{
+		private $session;
+		
+		public function __construct(SessionInterface $session)
+		{
+			$this->session = $session;
+		}
+		
 		/**
 		 * @Route("/instructeur", name="instructeur")
 		 */
@@ -75,20 +83,35 @@
 			$form->handleRequest($request);
 			
 			if($form->isSubmitted() && $form->isValid()){
-				$training = $form->getData();
+				$lesson = $form->getData();
 				
-				$em->persist($training);
+				$em->persist($lesson);
 				$em->flush();
 				
 				return $this->redirectToRoute('instructeur_lessen');
 			}
 			
-			return $this->render('administratie/trainingEdit.html.twig', [
+			return $this->render('instructeur/lessonEdit.html.twig', [
 				
 				'lesson_current' => $lesson_current,
-				'Lesson_Form' => $form->createView(),
+				'lessonForm' => $form->createView(),
 			
 			
 			]);
+		}
+		
+		/**
+		 * @Route("/instructeur/lessen/remove/{id}", name="delete_lesson")
+		 */
+		public function deleteTraining($id, EntityManagerInterface $em){
+			
+			$lesson = $this->getDoctrine()->getRepository(Lesson::class)->findOneBy(array('id' => $id));
+			
+			$em->remove($lesson);
+			$em->flush();
+			
+			return $this->redirectToRoute('instructeur_lessen');
+			
+			
 		}
 	}

@@ -8,6 +8,7 @@
 	use App\Entity\Location;
 	use App\Entity\Person;
 	use App\Entity\Training;
+	use Doctrine\ORM\EntityRepository;
 	use Doctrine\ORM\Mapping\Entity;
 	use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 	use Symfony\Component\Form\AbstractType;
@@ -45,7 +46,12 @@
 					'placeholder' => 'Kies een instructeur',
 					'class' => Person::class,
 					'choice_label' => 'firstname',
-					'label' => 'Instructeur:'
+					'label' => 'Instructeur:',
+					'query_builder' => function (EntityRepository $er) {
+						return $er->createQueryBuilder('t')
+							->where('t.salary > 0')
+							->orderBy('t.firstname', 'ASC');
+					},
 				
 				
 				])
