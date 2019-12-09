@@ -29,8 +29,17 @@
 			parent::buildForm($builder, $options);
 			$builder
 				->add('time', TimeType::class, ['label' => 'Tijd:'])
-				->add('date', DateType::class, ['label' => 'Datum:'])
-				->add('max_persons', NumberType::class)
+				->add('date', DateType::class, [
+					
+					'label' => 'Datum:',
+					//TODO: Fix selected dates
+				
+				])
+				->add('max_persons', NumberType::class, [
+					
+					'label' => 'Maximaal aantal deelnemers:'
+				
+				])
 				->add('instructor', EntityType::class, [
 					
 					'placeholder' => 'Kies een instructeur',

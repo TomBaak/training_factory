@@ -5,7 +5,8 @@
 
     use App\Entity\Person;
     use App\Entity\Training;
-    use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+	use Doctrine\ORM\Mapping\Entity;
+	use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
     use Symfony\Component\HttpFoundation\Response;
     use Symfony\Component\Routing\Annotation\Route;
 
@@ -61,4 +62,5 @@
 		{
 			return $this->render('noAccess.html.twig');
 		}
+
     }

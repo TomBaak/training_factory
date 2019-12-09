@@ -268,6 +268,11 @@
 			return $this;
 		}
 		
+		public function setRoles(array $roles)
+		{
+			$this->roles = $roles;
+		}
+		
 		public function getRoles(): array
 		{
 			$roles = $this->roles;

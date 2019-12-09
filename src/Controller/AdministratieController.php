@@ -39,7 +39,7 @@
 			]);
 		}
 		
-//		TODO: Make confirmation messages
+		//		TODO: Make confirmation messages
 		
 		/**
 		 * @Route("/administratie/training/new", name="administratie_newTraining")
