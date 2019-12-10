@@ -59,9 +59,7 @@
 		
 		public function checkCredentials($credentials, UserInterface $user)
 		{
-			
-			if($this->userRepository->findOneBy(['emailaddress' => $credentials['email']])){
-				$this->session->set('user', $this->userRepository->findOneBy(['emailaddress' => $credentials['email']]));
+			if($this->passwordEncoder->isPasswordValid($user, $credentials['password'])){
 				return true;
 			}else{
 				return false;

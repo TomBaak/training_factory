@@ -1,0 +1,30 @@
+{% extends 'bezoeker.html.twig' %}
+
+{% block body %}
+
+    <h1 class="text-secondary">Welkom {{user.firstname}}</h1>
+
+    <dl>
+        <dt>Naam:</dt>
+        <dd>{{ user.firstname }} {{ user.lastname }}</dd>
+        <dt>Email:</dt>
+        <dd>{{ user.emailaddress }}</dd>
+        <dt>Geboorte datum:</dt>
+        <dd>{{ user.dateofbirth|date('d-m-Y') }}</dd>
+        {% if user.street %}
+            <dt>Adres:</dt>
+            <dd>{{ user.street }}, {{ user.postalcode }} {{ user.place }}</dd>
+        {% elseif user.salary %}
+            <dt>Datum in dienst treding:</dt>
+            <dd>{{ user.hiringdate|date('d-m-Y') }}</dd>
+            <dt>Salaris:</dt>
+            <dt class="text-muted">Per maand</dt>
+            <dd>&euro;{{ user.salary }}</dd>
+        {% endif %}
+    </dl>
+
+    <a class="badge badge-danger" href="{{ path('logout') }}">Uitloggen</a>
+    <a href="{{ path('profileEdit', {'id': user.id}) }}" class="badge badge-warning">Wijzig gegevens</a>
+
+
+{% endblock %}

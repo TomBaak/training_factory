@@ -39,13 +39,13 @@ class Location
     private $number;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Lesson", mappedBy="location_id", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Lesson", mappedBy="location", orphanRemoval=true)
      */
-    private $location_id;
+    private $location;
 
     public function __construct()
     {
-        $this->location_id = new ArrayCollection();
+        $this->location = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -106,13 +106,13 @@ class Location
      */
     public function getLocationId(): Collection
     {
-        return $this->location_id;
+        return $this->location;
     }
 
     public function addLocationId(Lesson $locationId): self
     {
-        if (!$this->location_id->contains($locationId)) {
-            $this->location_id[] = $locationId;
+        if (!$this->location->contains($locationId)) {
+            $this->location[] = $locationId;
             $locationId->setLocationId($this);
         }
 
@@ -121,8 +121,8 @@ class Location
 
     public function removeLocationId(Lesson $locationId): self
     {
-        if ($this->location_id->contains($locationId)) {
-            $this->location_id->removeElement($locationId);
+        if ($this->location->contains($locationId)) {
+            $this->location->removeElement($locationId);
             // set the owning side to null (unless already changed)
             if ($locationId->getLocationId() === $this) {
                 $locationId->setLocationId(null);

@@ -6,21 +6,20 @@
 
 {% block body %}
 
-    <h2 class="mb-3">Inloggen</h2>
-
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+    <h2 class="mb-3">Wachtwoord Resetten</h2>
 
     <form method="post">
         <div class="form-group">
             <label for="email">Email:</label>
-            <input type="text" class="form-control" name="email" placeholder="Email" value="{{ last_username }}" id="email">
+            <input type="text" class="form-control" name="password" placeholder="Wachtwoord" value="" id="email">
         </div>
         <div class="form-group">
             <label for="pw">Wachtwoord:</label>
             <input type="password" class="form-control" name="password" placeholder="Wachtwoord" value="" id="pw">
-            <a href="{{ path('resetPw') }}" class="badge badge-secondary">Wachtwoord resetten</a>
+        </div>
+        <div class="form-group">
+            <label for="pw2">Herhaal wachtwoord:</label>
+            <input type="password" class="form-control" name="password" placeholder="Wachtwoord" value="" id="pw2">
         </div>
         <button type="submit" class="btn btn-secondary">Log in</button>
         <a href="{{ path('register') }}" class="btn btn-secondary">Registreren</a>

@@ -52,7 +52,7 @@ class Lesson
     private $training;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Location", inversedBy="location_id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Location", inversedBy="location")
      * @ORM\JoinColumn(nullable=false)
      */
     private $location;

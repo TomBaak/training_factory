@@ -1,9 +1,9 @@
 {% extends 'bezoeker.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Profiel Wijzigen{% endblock %}
 
 {% block body %}
-    <h1 class="text-success">Registreren</h1>
+    <h1 class="text-warning">Profiel wijzigen</h1>
 
     {{ form_start(registrationForm,{'attr': {'novalidate':'novalidate'}}) }}
     <div class="text-danger">
@@ -12,25 +12,12 @@
     <div class="row">
         {{ form_row(registrationForm.emailaddress) }}
     </div>
-
-    <div class="row">
-        {{ form_row(registrationForm.password) }}
-    </div>
     <hr class="bg-secondary">
-    <div class="row">
-        {{ form_row(registrationForm.preprovision) }}
-    </div>
     <div class="row">
         {{ form_row(registrationForm.firstname) }}
     </div>
     <div class="row">
         {{ form_row(registrationForm.lastname) }}
-    </div>
-    <div class="row">
-        {{ form_row(registrationForm.gender) }}
-    </div>
-    <div class="row">
-        {{ form_row(registrationForm.dateofbirth) }}
     </div>
     <hr class="bg-secondary">
     <div class="row">
@@ -42,7 +29,7 @@
     <div class="row">
         {{ form_row(registrationForm.place) }}
     </div>
-    <input type="submit" class="btn btn-success w-100" value="Registreren">
+    <input type="submit" class="btn btn-warning w-100 text-white" value="Wijzig profiel">
     {{ form_end(registrationForm) }}
     {{ form_widget(registrationForm) }}
 

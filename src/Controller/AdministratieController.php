@@ -37,7 +37,7 @@
 		}
 		
 		/**
-		 * @Route("/administratie/training/overview", name="administratie_trainingen")
+		 * @Route("/administratie/training/trainingen", name="administratie_trainingen")
 		 */
 		public function trainerTrainingen()
 		{

@@ -1,24 +1,2 @@
 {% extends "base.html.twig" %}
 
-{#TODO: Make nav items highlight when selected#}
-{% block nav %}
-    <div class="container-nav">
-        <nav class="navbar navbar-dark navbar-expand-lg">
-            <button class="navbar-toggler bg-dark" type="button" data-toggle="collapse"
-                    data-target="#navbarTogglerDemo01"
-                    aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link text-secondary " href="{{ path('home') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-secondary " href="{{ path('administratie_trainingen') }}">Trainingen</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-{% endblock %}

@@ -12,10 +12,64 @@
         <img class="float-left" src="{{ asset('img/logo.png') }}" width="10%">
         <h1 class="float-left">Training Centrum Den Haag</h1>
         <div class="float-right p-2">
-            <a class="btn btn-secondary" href="{{ path('login') }}">Inloggen</a>
-            <a class="btn btn-secondary" href="{{ path('logout') }}">Uitloggen</a>
+            {% if app.user %}
+                <p class="mb-0">Ingelogd als: <span
+                            class="font-weight-bold text-secondary">{{ app.user.firstname }}</span></p>
+                <a class="badge badge-secondary" href="{{ path('profile') }}">Ga naar profiel</a>
+            {% else %}
+                <a class="btn btn-secondary" href="{{ path('login') }}">Inloggen</a>
+            {% endif %}
         </div>
         <hr class="border-secondary">
+    </div>
+{% endblock %}
+
+{% block nav %}
+    <div class="container-nav">
+        <nav class="navbar navbar-dark navbar-expand-lg">
+            <button class="navbar-toggler bg-dark" type="button" data-toggle="collapse"
+                    data-target="#navbarTogglerDemo01"
+                    aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-secondary" href="{{ path('home') }}">Home</a>
+                    </li>
+                    {% if app.user %}
+                        {% if "ROLE_USER" in app.user.getRoles %}
+                            <li class="nav-item">
+                                <a class="nav-link text-secondary" href="{{ path('trainingen') }}">Trainings Aanbod</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-secondary" href="{{ path('register') }}">Lid worden</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-secondary" href="{{ path('rules') }}">Gedragsregels</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-secondary" href="{{ path('contact') }}">Locatie & Contact</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                    {% if app.user %}
+                        {% if "ROLE_ADMIN" in app.user.getRoles %}
+                            <li class="nav-item">
+                                <a class="nav-link text-secondary "
+                                   href="{{ path('administratie_trainingen') }}">Trainingen</a>
+                            </li>
+                        {% endif %}
+                        {% if "ROLE_TRAIN" in app.user.getRoles %}
+                            <li class="nav-item">
+                                <a class="nav-link text-secondary " href="{{ path('instructeur_lessen') }}">Lessen</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+
+                </ul>
+            </div>
+        </nav>
     </div>
 {% endblock %}
 
