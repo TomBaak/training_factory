@@ -3,45 +3,24 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1 class="text-success">Registreren</h1>
+    <h1 class="text-success mb-4">Registreren</h1>
 
     {{ form_start(registrationForm,{'attr': {'novalidate':'novalidate'}}) }}
-    <div class="text-danger">
+    <span class="text-danger">
         {{ form_errors(registrationForm) }}
-    </div>
-    <div class="row">
-        {{ form_row(registrationForm.emailaddress) }}
-    </div>
-
-    <div class="row">
-        {{ form_row(registrationForm.password) }}
-    </div>
+    </span>
+    {{ form_row(registrationForm.emailaddress) }}
+    {{ form_row(registrationForm.password) }}
     <hr class="bg-secondary">
-    <div class="row">
-        {{ form_row(registrationForm.preprovision) }}
-    </div>
-    <div class="row">
-        {{ form_row(registrationForm.firstname) }}
-    </div>
-    <div class="row">
-        {{ form_row(registrationForm.lastname) }}
-    </div>
-    <div class="row">
-        {{ form_row(registrationForm.gender) }}
-    </div>
-    <div class="row">
-        {{ form_row(registrationForm.dateofbirth) }}
-    </div>
+    {{ form_row(registrationForm.preprovision) }}
+    {{ form_row(registrationForm.firstname) }}
+    {{ form_row(registrationForm.lastname) }}
+    {{ form_row(registrationForm.gender) }}
+    {{ form_row(registrationForm.dateofbirth) }}
     <hr class="bg-secondary">
-    <div class="row">
-        {{ form_row(registrationForm.street) }}
-    </div>
-    <div class="row">
-        {{ form_row(registrationForm.postalcode) }}
-    </div>
-    <div class="row">
-        {{ form_row(registrationForm.place) }}
-    </div>
+    {{ form_row(registrationForm.street) }}
+    {{ form_row(registrationForm.postalcode) }}
+    {{ form_row(registrationForm.place) }}
     <input type="submit" class="btn btn-success w-100" value="Registreren">
     {{ form_end(registrationForm) }}
     {{ form_widget(registrationForm) }}

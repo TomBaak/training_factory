@@ -4,33 +4,19 @@
 
 {% block body %}
     <h1 class="text-warning">Profiel wijzigen</h1>
-
     {{ form_start(registrationForm,{'attr': {'novalidate':'novalidate'}}) }}
-    <div class="text-danger">
+    <span class="text-danger">
         {{ form_errors(registrationForm) }}
-    </div>
-    <div class="row">
-        {{ form_row(registrationForm.emailaddress) }}
-    </div>
+    </span>
+    {{ form_row(registrationForm.emailaddress) }}
     <hr class="bg-secondary">
-    <div class="row">
-        {{ form_row(registrationForm.firstname) }}
-    </div>
-    <div class="row">
-        {{ form_row(registrationForm.lastname) }}
-    </div>
+    {{ form_row(registrationForm.firstname) }}
+    {{ form_row(registrationForm.lastname) }}
     <hr class="bg-secondary">
-    <div class="row">
-        {{ form_row(registrationForm.street) }}
-    </div>
-    <div class="row">
-        {{ form_row(registrationForm.postalcode) }}
-    </div>
-    <div class="row">
-        {{ form_row(registrationForm.place) }}
-    </div>
+    {{ form_row(registrationForm.street) }}
+    {{ form_row(registrationForm.postalcode) }}
+    {{ form_row(registrationForm.place) }}
     <input type="submit" class="btn btn-warning w-100 text-white" value="Wijzig profiel">
     {{ form_end(registrationForm) }}
     {{ form_widget(registrationForm) }}
-
 {% endblock %}

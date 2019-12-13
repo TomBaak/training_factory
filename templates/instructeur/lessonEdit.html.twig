@@ -6,32 +6,19 @@
 
 {% block body %}
 
-    <h1 class="text-warning">Wijzig {{ lesson_current.training.name }} <span class="text-dark">{{ lesson_current.time|date("H:i") }} op {{ lesson_current.date|date("d-m-Y") }} op de {{ lesson_current.location }}</span></h1>
+    <h1 class="text-warning">Wijzig {{ lesson_current.training.name }} <span class="text-dark">{{ lesson_current.time|date("H:i") }} op {{ lesson_current.date|date("d-m-Y") }} op locatie {{ lesson_current.location }}</span></h1>
 
     {{ form_start(lessonForm,{'attr': {'novalidate':'novalidate'}}) }}
 
     <div class="text-danger">
         {{ form_errors(lessonForm) }}
     </div>
-    <div class="row">
-        {{ form_row(lessonForm.time) }}
-    </div>
-
-    <div class="row">
-        {{ form_row(lessonForm.date) }}
-    </div>
-    <div class="row">
-        {{ form_row(lessonForm.max_persons) }}
-    </div>
-    <div class="row">
-        {{ form_row(lessonForm.instructor) }}
-    </div>
-    <div class="row">
-        {{ form_row(lessonForm.training) }}
-    </div>
-    <div class="row">
-        {{ form_row(lessonForm.location_id) }}
-    </div>
+    {{ form_row(lessonForm.time) }}
+    {{ form_row(lessonForm.date) }}
+    {{ form_row(lessonForm.max_persons) }}
+    {{ form_row(lessonForm.instructor) }}
+    {{ form_row(lessonForm.training) }}
+    {{ form_row(lessonForm.location_id) }}
     <input type="submit" class="btn btn-warning w-100 text-white" value="Wijzig les">
 
     {{ form_end(lessonForm) }}
