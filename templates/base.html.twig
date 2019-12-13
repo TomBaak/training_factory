@@ -1,6 +1,7 @@
 {% extends "layout.html.twig" %}
 
 {% block stylesheets %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/theme_TF.css') }}">
     <link rel="stylesheet" href="{{ asset('css/overwrite.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Black+Ops+One&display=swap" rel="stylesheet">
@@ -37,21 +38,16 @@
                     <li class="nav-item">
                         <a class="nav-link text-secondary" href="{{ path('home') }}">Home</a>
                     </li>
-                    {% if app.user %}
-                        {% if "ROLE_USER" in app.user.getRoles %}
-                            <li class="nav-item">
-                                <a class="nav-link text-secondary" href="{{ path('trainingen') }}">Trainings Aanbod</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-secondary" href="{{ path('register') }}">Lid worden</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-secondary" href="{{ path('rules') }}">Gedragsregels</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-secondary" href="{{ path('contact') }}">Locatie & Contact</a>
-                            </li>
-                        {% endif %}
+                    {% if app.user == false %}
+                        <li class="nav-item">
+                            <a class="nav-link text-secondary" href="{{ path('register') }}">Lid worden</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-secondary" href="{{ path('rules') }}">Gedragsregels</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-secondary" href="{{ path('trainingen') }}">Trainings Aanbod</a>
+                        </li>
                     {% endif %}
                     {% if app.user %}
                         {% if "ROLE_ADMIN" in app.user.getRoles %}
@@ -60,13 +56,24 @@
                                    href="{{ path('administratie_trainingen') }}">Trainingen</a>
                             </li>
                         {% endif %}
-                        {% if "ROLE_TRAIN" in app.user.getRoles %}
+                        {% if "ROLE_ADMIN" in app.user.getRoles == false and "ROLE_TRAINER" in app.user.getRoles == false %}
+                            <li class="nav-item">
+                                <a class="nav-link text-secondary" href="{{ path('inschrijvenOpLes') }}">Inschrijven op les</a>
+                            </li>
+                        {% endif %}
+                        {% if "ROLE_TRAINER" in app.user.getRoles %}
                             <li class="nav-item">
                                 <a class="nav-link text-secondary " href="{{ path('instructeur_lessen') }}">Lessen</a>
                             </li>
+                            {#                            TODO: Fix duplicate code#}
+                            <li class="nav-item">
+                                <a class="nav-link text-secondary" href="{{ path('trainingen') }}">Trainings Aanbod</a>
+                            </li>
                         {% endif %}
                     {% endif %}
-
+                    <li class="nav-item">
+                        <a class="nav-link text-secondary" href="{{ path('contact') }}">Locatie & Contact</a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -74,13 +81,13 @@
 {% endblock %}
 
 {% block base_container %}
-    <div class="container container-95 border m-auto p-3">
+    <div class="container-fluid container-95 border m-auto p-3">
         {% block banner %}
             <div class="container-95 p-3 m-auto img_banner">
                 <div class="row justify-content-center w-100 img_banner">
-                    <img class="col-4" src="{{ asset('img/banner2.jpg') }}">
+                    <img class="col-3" src="{{ asset('img/banner2.jpg') }}">
                     <img class="col-4" src="{{ asset('img/banner1.jpg') }}">
-                    <img class="col-4" src="{{ asset('img/banner3.jpg') }}">
+                    <img class="col-3" src="{{ asset('img/banner3.jpg') }}">
                 </div>
             </div>
         {% endblock %}

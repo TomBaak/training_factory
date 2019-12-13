@@ -9,16 +9,10 @@
 	use App\Entity\Person;
 	use App\Entity\Training;
 	use Doctrine\ORM\EntityRepository;
-	use Doctrine\ORM\Mapping\Entity;
 	use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 	use Symfony\Component\Form\AbstractType;
-	use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-	use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 	use Symfony\Component\Form\Extension\Core\Type\DateType;
-	use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 	use Symfony\Component\Form\Extension\Core\Type\NumberType;
-	use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-	use Symfony\Component\Form\Extension\Core\Type\TextType;
 	use Symfony\Component\Form\Extension\Core\Type\TimeType;
 	use Symfony\Component\Form\FormBuilderInterface;
 	use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -33,7 +27,7 @@
 				->add('date', DateType::class, [
 					
 					'label' => 'Datum:',
-					//TODO: Fix selected dates
+				
 				
 				])
 				->add('max_persons', NumberType::class, [

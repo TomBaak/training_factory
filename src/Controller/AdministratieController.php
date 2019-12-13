@@ -44,7 +44,7 @@
 			$trainingen = $this->getDoctrine()->getRepository(Training::class)->findAll();
 			
 			
-			return $this->render('administratie/trainingsAanbod.html.twig', [
+			return $this->render('bezoeker/trainingsAanbod.html.twig', [
 				
 				'trainings' => $trainingen,
 			

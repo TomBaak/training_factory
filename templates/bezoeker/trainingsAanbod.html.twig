@@ -7,16 +7,41 @@
 {% block body %}
 
     <h3 class="text-secondary">Trainingen</h3>
+    {% if app.user %}
+        {% if "ROLE_ADMIN" in app.user.getRoles %}
+            <a class="btn btn-success mt-2 mb-2 w-100" href="{{ path('administratie_newTraining') }}">Nieuwe
+                Training</a>
+        {% endif %}
+    {% endif %}
     <hr>
 
-            {% for training in trainings %}
-                <h4>{{ training.name }}</h4>
-                <p class="td_desc">{{ training.description }}</p>
-                <p><span class="font-weight-bold">Lengte:</span> {{ training.duration }} minuten</p>
-                <p><span class="font-weight-bold">Kosten:</span> {% if training.costs %}&euro;{{ training.costs }}{% else %}Gratis{% endif %}</p>
-                <hr>
-            {% endfor %}
-
+    {% for training in trainings %}
+        <div class="card mb-3 w-100">
+            <div class="row no-gutters">
+                <div class="col">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ training.name }}</h5>
+                        <p class="card-text">{{ training.description }}</p>
+                        <p class="card-text text-muted mb-0">
+                            Lengte: <span
+                                    class="font-weight-bold text-secondary">{{ training.duration }} minuten</span>
+                        </p>
+                        <p class="card-text text-muted">
+                            Kosten: <span
+                                    class="font-weight-bold text-secondary">{% if training.costs %}&euro;{{ training.costs }}{% else %}Gratis{% endif %}</span>
+                        </p>
+                        {% if app.user %}
+                            {% if "ROLE_ADMIN" in app.user.getRoles %}
+                                <a class="btn btn-danger" href="{{ path('delete_training', {'id': training.id}) }}">Verwijder</a>
+                                <a class="btn btn-warning text-white"
+                                   href="{{ path('edit_training', {'id': training.id}) }}">Wijzig</a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
 
 
 {% endblock %}

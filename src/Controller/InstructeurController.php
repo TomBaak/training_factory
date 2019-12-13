@@ -31,23 +31,48 @@
 			$user = $this->getDoctrine()->getRepository(Person::class)->findOneBy(array('loginname' => $this->session->get('user')->getLoginname()));
 			
 			return $this->render('instructeur/home.html.twig', [
-			
-				'name' => $user->getFirstname(),
 				
+				'name' => $user->getFirstname(),
+			
 			]);
 		}
 		
 		/**
 		 * @Route("/instructeur/lessen", name="instructeur_lessen")
 		 */
-		public function instructeurLessen()
+		public function instructeurLessen(Request $request)
 		{
-			$lessen = $this->getDoctrine()->getRepository(Lesson::class)->findAll();
+			//TODO: Catch wrong GET
 			
-			return $this->render('instructeur/instructeurLessen.html.twig', [
+			$lessen = [];
+			
+			$subpage = false;
+			
+			if ($request->query->get('date') != NULL) {
+				$lessen = $this->getDoctrine()->getRepository(Lesson::class)->findBy(['date' => new \DateTime($request->query->get('date'), new \DateTimeZone('Europe/Amsterdam'))]);
+				$subpage = true;
+			} else {
+				$lessen = $this->getDoctrine()->getRepository(Lesson::class)->findAll();
+				$subpage = false;
+			}
+			
+			$dates = [];
+			
+			//Fills $date with the all the different dates of the lessen and makes sure there are no duplicate dates
+			foreach ($lessen as &$les) {
 				
-				'lessen' => $lessen,
+				if (array_search($les->getDate(), $dates) === false) {
+					array_push($dates, $les->getDate());
+				}
+				
+			}
 			
+			return $this->render('lid/lessenAanbod.html.twig', [
+				
+				'user' => $this->getUser(),
+				'lessen' => $lessen,
+				'dates' => $dates,
+				'subpage' => $subpage
 			
 			]);
 		}

@@ -1,0 +1,67 @@
+{% extends "bezoeker.html.twig" %}
+
+{% block title %}
+    Lessen
+{% endblock %}
+
+{% block body %}
+
+    <h3 class="text-secondary">Lessen</h3>
+
+    {% if "ROLE_TRAINER" in app.user.getRoles %}
+        <a class="btn btn-success mt-2 mb-2 w-100" href="{{ path('instructeur_lessen_new') }}">Nieuwe les</a>
+    {% endif %}
+    <hr>
+
+    <ul class="nav nav-pills">
+        {% if subpage %}
+            <li class="nav-item">
+                <a class="nav-link btn btn-outline-secondary text-decoration-none mb-3 mr-1"
+                   href="{{ path('inschrijvenOpLes') }}">Alle lessen</a>
+            </li>
+        {% else %}
+            {% for date in dates %}
+                <li class="nav-item">
+                    <a class="nav-link btn btn-outline-secondary text-decoration-none mb-3 mr-1"
+                       href="{{ path('inschrijvenOpLes', {date: date|date("d-m-Y")}) }}">{{ date|date("d F Y") }}</a>
+                </li>
+            {% endfor %}
+        {% endif %}
+
+    </ul>
+
+    {% for les in lessen %}
+        <div class="card mb-3 w-100">
+            <div class="row no-gutters">
+                <div class="col-md-2">
+                    <img src="{{ asset('img/banner2.jpg') }}" class="card-img h-100" alt="">
+                </div>
+                <div class="col-md-10">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ les.training.name }} <span
+                                    class="text-muted">{{ les.date|date('d F Y') }}</span></h5>
+                        <p class="card-text">{{ les.training.description }}</p>
+                        <p class="card-text text-muted mb-0">
+                            Tijd: <span
+                                    class="font-weight-bold text-secondary">{{ les.time|date("H:i") }}</span>
+                        </p>
+                        <p class="card-text text-muted">
+                            Trainer: <span
+                                    class="font-weight-bold text-secondary">{{ les.instructor.firstname }} {{ les.instructor.lastname }}</span>
+                        </p>
+
+                        {% if "ROLE_TRAINER" in app.user.getRoles %}
+                            <a class="btn btn-danger" href="{{ path('delete_lesson', {'id': les.id}) }}">Verwijder</a>
+                            <a class="btn btn-warning text-white" href="{{ path('edit_lesson', {'id': les.id}) }}">Wijzig</a>
+                        {% else %}
+                            <a class="card-link btn btn-outline-success" href="#">Inschrijven op deze les</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+
+
+{% endblock %}

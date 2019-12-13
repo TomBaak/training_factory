@@ -37,7 +37,7 @@
 			
 			$person->setRoles([
 				'ROLE_ADMIN',
-				'ROLE_TRAIN'
+				'ROLE_TRAINER'
 			]);
 			
 			$manager->persist($person);

@@ -97,7 +97,7 @@
 					$newPerson->getPassword()
 				));
 				
-				$newPerson->setLoginname(substr(strtolower($newPerson->getFirstname() . $newPerson->getLastname(), " ", "")));
+				$newPerson->setLoginname(str_replace(' ', '', strtolower($newPerson->getFirstname() . $newPerson->getLastname())));
 				
 				$em->persist($newPerson);
 				$em->flush();
