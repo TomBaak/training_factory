@@ -49,14 +49,30 @@
 			$subpage = false;
 			
 			if ($request->query->get('date') != NULL) {
-				$lessen = $this->getDoctrine()->getRepository(Lesson::class)->findBy(['date' => new \DateTime($request->query->get('date'), new \DateTimeZone('Europe/Amsterdam'))]);
+				$lessen = $this->getDoctrine()->getRepository(Lesson::class)->findBy([
+					
+					'date' => new \DateTime($request->query->get('date'), new \DateTimeZone('Europe/Amsterdam')),
+					'instructor' => $this->getUser()->getId()
+				
+				]);
 				$subpage = true;
 			} else {
-				$lessen = $this->getDoctrine()->getRepository(Lesson::class)->findAll();
+				$lessen = $this->getDoctrine()->getRepository(Lesson::class)->findBy([
+					
+					'instructor' => $this->getUser()->getId()
+				
+				]);
 				$subpage = false;
 			}
 			
 			$dates = [];
+			
+			usort($lessen, function ($a, $b) {
+				if ($a->getDate() == $b->getDate()) {
+					return 0;
+				}
+				return ($a->getDate() < $b->getDate()) ? -1 : 1;
+			});
 			
 			//Fills $date with the all the different dates of the lessen and makes sure there are no duplicate dates
 			foreach ($lessen as &$les) {
@@ -69,7 +85,6 @@
 			
 			return $this->render('lid/lessenAanbod.html.twig', [
 				
-				'user' => $this->getUser(),
 				'lessen' => $lessen,
 				'dates' => $dates,
 				'subpage' => $subpage
@@ -88,6 +103,8 @@
 			
 			if ($form->isSubmitted() && $form->isValid()) {
 				$lesson = $form->getData();
+				
+				$lesson->setInstructor($this->getUser());
 				
 				$em->persist($lesson);
 				$em->flush();
@@ -145,6 +162,22 @@
 			$em->flush();
 			
 			return $this->redirectToRoute('instructeur_lessen');
+			
+			
+		}
+		
+		/**
+		 * @Route("/instructeur/lessen/deelnemers/{id}", name="deelnemers")
+		 */
+		public function deelnemers($id, EntityManagerInterface $em)
+		{
+			$lesson = $this->getDoctrine()->getRepository(Lesson::class)->findOneBy(array('id' => $id));
+			
+			return $this->render('instructeur/deelnemers.html.twig', [
+			
+				'lesson' => $lesson
+			
+			]);
 			
 			
 		}

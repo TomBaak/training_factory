@@ -1,0 +1,56 @@
+{% extends 'bezoeker.html.twig' %}
+
+{% block body %}
+
+    {% for flashMessage in app.session.flashbag.get('success') %}
+
+        <div class="alert alert-success alert-dismissible fade show mb-2 mt-2" role="alert">
+            <strong>{{ flashMessage }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+    {% endfor %}
+
+    <h3 class="mt-4 text-secondary">Inschreven lessen</h3>
+    <hr class="bg-secondary">
+
+    {% if registrations %}
+        {% for registration in registrations %}
+            <div class="card mb-3 w-100">
+                <div class="row no-gutters">
+                    <div class="col">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ registration.lesson.training.name }}</h5>
+                            <p class="card-text text-muted mb-0">
+                                Aantal ingeschreven deelnemers: <span
+                                        class="font-weight-bold text-secondary">{{ registration.lesson.registrations|length }}</span>
+                            </p>
+                            <p class="card-text text-muted mb-0">
+                                Tijd: <span
+                                        class="font-weight-bold text-secondary">{{ registration.lesson.time|date('H:i') }}</span>
+                            </p>
+                            <p class="card-text text-muted mb-0">
+                                Datum: <span
+                                        class="font-weight-bold text-secondary">{{ registration.lesson.date|date('j F Y') }}</span>
+                            </p>
+                            <p class="card-text text-muted">
+                                Betaald: <span
+                                        class="font-weight-bold text-secondary">{% if registration.payment %}{{ "Ja" }}{% else %}{{ 'Nee' }}<span class="text-muted font-weight-normal">{{ ' neem contact op met de administratie op deze les te betalen' }}</span>{% endif %}</span>
+                            </p>
+                            <a class="btn btn-outline-danger" href="{{ path('uitschrijvenOpLes', {id: registration.id}) }}">Uitschrijven</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+
+        <h5>U heeft u nog niet ingeschreven op een les <span class="">klik <a class="text-secondary"
+                                                                              href="{{ path('inschrijvenOpLes') }}">hier</a> om u in te schrijven op les</span>
+        </h5>
+
+    {% endif %}
+
+{% endblock %}

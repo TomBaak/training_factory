@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Deelnemers {{ lesson.training.name }} op {{ lesson.date|date('j-m-Y') }}
+{% endblock %}
+
+{% block body %}
+    <h2 class="text-secondary">Deelnemers</h2>
+
+    <dl>
+        {% for registration in lesson.registrations %}
+            <dt>
+                <p class="mb-0">Naam: <span
+                            class="text-secondary font-weight-bold">{{ registration.member.firstname }} {{ registration.member.lastname }}</span>
+            </dt>
+            <dd><p>Betaald: <span class="font-weight-bold">{% if registration.payment %}<span
+                                class="text-success">{{ "Ja" }}</span>{% else %}<span
+                                class="text-danger">{{ "Nee" }}</span>{% endif %}</span></p></dd>
+            <hr class="bg-secondary m-0">
+        {% endfor %}
+    </dl>
+
+{% endblock %}
+

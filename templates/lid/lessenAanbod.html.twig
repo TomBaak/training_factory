@@ -52,6 +52,12 @@
 
     </ul>
 
+    {% if "ROLE_TRAINER" in app.user.getRoles %}
+        {% if lessen == NULL %}
+            <h5>U heeft nog geen lessen ingepland</h5>
+        {% endif %}
+    {% endif %}
+
     {% for les in lessen %}
         <div class="card mb-3 w-100">
             <div class="row no-gutters">
@@ -67,16 +73,26 @@
                             Tijd: <span
                                     class="font-weight-bold text-secondary">{{ les.time|date("H:i") }}</span>
                         </p>
-                        <p class="card-text text-muted">
+                        <p class="card-text text-muted mb-0">
                             Trainer: <span
                                     class="font-weight-bold text-secondary">{{ les.instructor.firstname }} {{ les.instructor.lastname }}</span>
+                        </p>
+                        <p class="card-text text-muted mb-0">
+                            Aantal ingeschreven deelnemers: <span
+                                    class="font-weight-bold text-secondary">{{ les.registrations|length }} </span>
+                        </p>
+                        <p class="card-text text-muted">
+                            Maximaal aantal deelnemers: <span
+                                    class="font-weight-bold text-secondary">{{ les.MaxPersons }}</span>
                         </p>
 
                         {% if "ROLE_TRAINER" in app.user.getRoles %}
                             <a class="btn btn-danger" href="{{ path('delete_lesson', {'id': les.id}) }}">Verwijder</a>
                             <a class="btn btn-warning text-white" href="{{ path('edit_lesson', {'id': les.id}) }}">Wijzig</a>
+                            <a class="btn btn-dark text-white" href="{{ path('deelnemers', {'id': les.id}) }}">Lijst met deelnemers</a>
                         {% else %}
-                            <a class="card-link btn btn-outline-success" href="{{ path('nieuweInschrijving', {id: les.id}) }}">Inschrijven op deze les</a>
+                            <a class="card-link btn btn-outline-success"
+                               href="{{ path('nieuweInschrijving', {id: les.id}) }}">Inschrijven op deze les</a>
                         {% endif %}
                     </div>
                 </div>

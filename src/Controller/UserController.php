@@ -139,6 +139,7 @@
 				
 				$registration->setMember($this->getUser());
 				$registration->setLesson($this->getDoctrine()->getRepository(Lesson::class)->findOneBy(['id' => $id]));
+				$registration->setPayment(false);
 				
 				if($this->getDoctrine()->getRepository(Registration::class)->findBy(array('member' => $this->getUser()->getId(), 'lesson' => $id)) == NULL){
 					$em->persist($registration);
@@ -168,7 +169,7 @@
 			
 			
 		}
-		
+	
 		/**
 		 * @Route("lid/uitschrijvenOpLes/{id}", name="uitschrijvenOpLes")
 		 */
@@ -187,8 +188,25 @@
 				$em->remove($registration);
 				$em->flush();
 				
-				return $this->redirectToRoute('profile');
+				return $this->redirectToRoute('inschrijvingen');
 			}
+			
+			
+		}
+		
+		/**
+		 * @Route("lid/inschrijvingen", name="inschrijvingen")
+		 */
+		public function inschrijvingen(EntityManagerInterface $em,SessionInterface $session)
+		{
+			
+			$registered_lessons = $this->getDoctrine()->getRepository(Registration::class)->findBy(array('member' => $this->getUser()->getId()));
+			
+			return $this->render('lid\inschrijvingen.hmtl.twig', [
+				
+				'registrations' => $registered_lessons
+			
+			]);
 			
 			
 		}

@@ -4,15 +4,12 @@
 	namespace App\Form;
 	
 	use App\Entity\Person;
-	use Doctrine\ORM\EntityRepository;
-	use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 	use Symfony\Component\Form\AbstractType;
 	use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 	use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 	use Symfony\Component\Form\Extension\Core\Type\DateType;
-	use Symfony\Component\Form\Extension\Core\Type\NumberType;
 	use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-	use Symfony\Component\Form\Extension\Core\Type\TimeType;
+	use Symfony\Component\Form\Extension\Core\Type\TextType;
 	use Symfony\Component\Form\FormBuilderInterface;
 	use Symfony\Component\OptionsResolver\OptionsResolver;
 	
@@ -22,12 +19,13 @@
 		{
 			parent::buildForm($builder, $options);
 			$builder
-				->add('emailaddress')
-				->add('firstname')
-				->add('lastname')
-				->add('street')
-				->add('postalcode')
-				->add('place');
+				->add('emailaddress', TextType::class, ['label' => 'Email'])
+				->add('firstname', TextType::class, ['label' => 'Voornaam'] )
+				->add('lastname', TextType::class, ['label' => 'Achternaam'])
+				->add('dateofbirth', BirthdayType::class, ['label' => 'Geboorte datum'])
+				->add('street', TextType::class, ['label' => 'Straatnaam'] )
+				->add('postalcode', TextType::class, ['label' => 'Postcode'])
+				->add('place', TextType::class, ['label' => 'Woonplaats']);
 		}
 		
 		public function configureOptions(OptionsResolver $resolver)

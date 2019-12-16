@@ -36,43 +36,4 @@
     <a class="badge badge-danger" href="{{ path('logout') }}">Uitloggen</a>
     <a href="{{ path('profileEdit', {'id': user.id}) }}" class="badge badge-warning mb-3">Wijzig gegevens</a>
 
-    {% for flashMessage in app.session.flashbag.get('success') %}
-
-        <div class="alert alert-success alert-dismissible fade show mb-2 mt-2" role="alert">
-            <strong>{{ flashMessage }}</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-
-    {% endfor %}
-
-    {% if lessons %}
-
-        <h3 class="mt-4 text-secondary">Inschreven lessen</h3>
-        <hr class="bg-secondary">
-
-        {% for les in lessons %}
-            <div class="card mb-3 w-100">
-                <div class="row no-gutters">
-                    <div class="col">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ les.lesson.training.name}}</h5>
-                            <p class="card-text text-muted mb-0">
-                                Tijd: <span
-                                        class="font-weight-bold text-secondary">{{ les.lesson.time|date("H:i") }}</span>
-                            </p>
-                            <p class="card-text text-muted mb-3">
-                                Datum: <span
-                                        class="font-weight-bold text-secondary">{{ les.lesson.date|date('j F Y') }}</span>
-                            </p>
-                            <a class="btn btn-outline-danger" href="{{ path('uitschrijvenOpLes', {id: les.id}) }}">Uitschrijven</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    {% endif %}
-
-
 {% endblock %}

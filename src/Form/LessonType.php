@@ -35,20 +35,6 @@
 					'label' => 'Maximaal aantal deelnemers:'
 				
 				])
-				->add('instructor', EntityType::class, [
-					
-					'placeholder' => 'Kies een instructeur',
-					'class' => Person::class,
-					'choice_label' => 'firstname',
-					'label' => 'Instructeur:',
-					'query_builder' => function (EntityRepository $er) {
-						return $er->createQueryBuilder('t')
-							->where('t.salary > 0')
-							->orderBy('t.firstname', 'ASC');
-					},
-				
-				
-				])
 				->add('training', EntityType::class, [
 					
 					'placeholder' => 'Kies een training',

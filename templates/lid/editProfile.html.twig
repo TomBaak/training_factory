@@ -3,7 +3,7 @@
 {% block title %}Profiel Wijzigen{% endblock %}
 
 {% block body %}
-    <h1 class="text-warning">Profiel wijzigen</h1>
+    <h1 class="text-warning mb-4">Profiel wijzigen</h1>
     {{ form_start(registrationForm,{'attr': {'novalidate':'novalidate'}}) }}
     <span class="text-danger">
         {{ form_errors(registrationForm) }}
@@ -12,6 +12,7 @@
     <hr class="bg-secondary">
     {{ form_row(registrationForm.firstname) }}
     {{ form_row(registrationForm.lastname) }}
+    {{ form_row(registrationForm.dateofbirth) }}
     <hr class="bg-secondary">
     {{ form_row(registrationForm.street) }}
     {{ form_row(registrationForm.postalcode) }}

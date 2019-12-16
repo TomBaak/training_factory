@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Integer;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LessonRepository")
@@ -43,7 +44,7 @@ class Lesson
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Registration", mappedBy="lesson")
      */
-    private $lesson;
+    private $registrations;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Training", inversedBy="training")
@@ -59,7 +60,7 @@ class Lesson
 
     public function __construct()
     {
-        $this->lesson = new ArrayCollection();
+        $this->registrations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -130,16 +131,16 @@ class Lesson
     /**
      * @return Collection|Registration[]
      */
-    public function getLesson(): Collection
+    public function getRegistrations(): Collection
     {
-        return $this->lesson;
+        return $this->registrations;
     }
 
-    public function addLesson(Registration $lesson): self
+    public function addLesson(Registration $registration): self
     {
-        if (!$this->lesson->contains($lesson)) {
-            $this->lesson[] = $lesson;
-            $lesson->setLesson($this);
+        if (!$this->registrations->contains($registration)) {
+            $this->registrations[] = $registration;
+			$registration->setLesson($this);
         }
 
         return $this;
@@ -147,8 +148,8 @@ class Lesson
 
     public function removeLesson(Registration $lesson): self
     {
-        if ($this->lesson->contains($lesson)) {
-            $this->lesson->removeElement($lesson);
+        if ($this->registrations->contains($lesson)) {
+            $this->registrations->removeElement($lesson);
             // set the owning side to null (unless already changed)
             if ($lesson->getLesson() === $this) {
                 $lesson->setLesson(null);
