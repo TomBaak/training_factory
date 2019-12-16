@@ -104,6 +104,26 @@
             </div>
         {% endblock %}
         <div class="container w-75 border m-auto p-3">
+            {% block flashbags %}
+                {% for flashMessage in app.session.flashbag.get('error') %}
+                    <div class="alert alert-danger alert-dismissible fade show mb-2 mt-2" role="alert">
+                        <strong>{{ flashMessage }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+
+                {% for flashMessage in app.session.flashbag.get('success') %}
+                    <div class="alert alert-success alert-dismissible fade show mb-2 mt-2" role="alert">
+                        <strong>{{ flashMessage }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+
+            {% endblock %}
             {% block body %}
             {% endblock %}
         </div>

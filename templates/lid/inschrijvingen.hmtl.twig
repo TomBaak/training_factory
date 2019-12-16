@@ -2,17 +2,6 @@
 
 {% block body %}
 
-    {% for flashMessage in app.session.flashbag.get('success') %}
-
-        <div class="alert alert-success alert-dismissible fade show mb-2 mt-2" role="alert">
-            <strong>{{ flashMessage }}</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-
-    {% endfor %}
-
     <h3 class="mt-4 text-secondary">Inschreven lessen</h3>
     <hr class="bg-secondary">
 

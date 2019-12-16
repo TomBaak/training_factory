@@ -6,6 +6,7 @@
 	
 	use App\Entity\Lesson;
 	use App\Entity\Person;
+	use App\Entity\Registration;
 	use App\Form\LessonType;
 	use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 	use Doctrine\ORM\EntityManagerInterface;
@@ -169,16 +170,46 @@
 		/**
 		 * @Route("/instructeur/lessen/deelnemers/{id}", name="deelnemers")
 		 */
-		public function deelnemers($id, EntityManagerInterface $em)
+		public function deelnemers($id, EntityManagerInterface $em, SessionInterface $session)
 		{
 			$lesson = $this->getDoctrine()->getRepository(Lesson::class)->findOneBy(array('id' => $id));
+			
+			$this->session->set('lastId', $id);
 			
 			return $this->render('instructeur/deelnemers.html.twig', [
 			
 				'lesson' => $lesson
 			
 			]);
+		}
+		
+		/**
+		 * @Route("/instructeur/lessen/deelnemers/payed/{id}", name="deelnemerPayed")
+		 */
+		public function deelnemersPayed($id, EntityManagerInterface $em, SessionInterface $session)
+		{
 			
+			$registration = $this->getDoctrine()->getRepository(Registration::class)->findOneBy(array('id' => $id));
+			
+			if($registration != NULL){
+				$registration->setPayment(true);
+				
+				$em->persist($registration);
+				$em->flush();
+				
+				$session->getFlashBag()->add(
+					'success',
+					'Betaling reregistreerd'
+				);
+				
+			}else{
+				$session->getFlashBag()->add(
+					'error',
+					'Fout, probeer opnieuw'
+				);
+			}
+			
+			return $this->redirectToRoute('deelnemers', ['id' => $this->session->get('lastId')]);
 			
 		}
 	}
