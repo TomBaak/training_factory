@@ -124,4 +124,20 @@
 			
 		}
 		
+		/**
+		 * @Route("administratie/leden", name="leden")
+		 */
+		public function leden(EntityManagerInterface $em){
+			
+			$leden = $this->getDoctrine()->getRepository(Person::class)->findAll();
+			
+			return $this->render('administratie/leden.html.twig',[
+				
+				'leden' => $leden
+				
+			]);
+			
+			
+		}
+		
 	}

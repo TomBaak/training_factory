@@ -192,6 +192,7 @@
 			$registration = $this->getDoctrine()->getRepository(Registration::class)->findOneBy(array('id' => $id));
 			
 			if($registration != NULL){
+				
 				$registration->setPayment(true);
 				
 				$em->persist($registration);

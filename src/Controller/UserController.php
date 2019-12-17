@@ -7,6 +7,7 @@
 	use App\Entity\Lesson;
 	use App\Entity\Person;
 	use App\Entity\Registration;
+	use App\Form\EmployeeEditType;
 	use App\Form\LessonType;
 	use App\Form\PersonEditType;
 	use App\Form\PersonType;
@@ -54,7 +55,14 @@
 				return $this->redirectToRoute('profile');
 			}
 			
-			$form = $this->createForm(PersonEditType::class, $person);
+			if (in_array("ROLE_TRAINER", $this->getUser()->getRoles()) || in_array("ROLE_TRAINER", $this->getUser()->getRoles())) {
+				$form = $this->createForm(EmployeeEditType::class, $person);
+				$editTemplate = 'lid/editEmployeeProfile.html.twig';
+			} else {
+				$form = $this->createForm(PersonEditType::class, $person);
+				$editTemplate = 'lid/editProfile.html.twig';
+			}
+			
 			
 			$form->handleRequest($request);
 			
@@ -67,12 +75,15 @@
 				return $this->redirectToRoute('profile');
 			}
 			
-			return $this->render('lid/editProfile.html.twig', [
+			
+			return $this->render($editTemplate, [
 				
 				'personCurrent' => $person_current,
 				'registrationForm' => $form->createView(),
 			
 			]);
+			
+			
 		}
 		
 		/**
@@ -131,7 +142,7 @@
 		/**
 		 * @Route("lid/nieuweInschrijving/{id}", name="nieuweInschrijving")
 		 */
-		public function nieuweInschrijving($id, EntityManagerInterface $em,SessionInterface $session)
+		public function nieuweInschrijving($id, EntityManagerInterface $em, SessionInterface $session)
 		{
 			
 			if ($this->getDoctrine()->getRepository(Lesson::class)->findOneBy(['id' => $id]) != NULL) {
@@ -141,7 +152,7 @@
 				$registration->setLesson($this->getDoctrine()->getRepository(Lesson::class)->findOneBy(['id' => $id]));
 				$registration->setPayment(false);
 				
-				if($this->getDoctrine()->getRepository(Registration::class)->findBy(array('member' => $this->getUser()->getId(), 'lesson' => $id)) == NULL){
+				if ($this->getDoctrine()->getRepository(Registration::class)->findBy(array('member' => $this->getUser()->getId(), 'lesson' => $id)) == NULL) {
 					$em->persist($registration);
 					$em->flush();
 					
@@ -150,7 +161,7 @@
 						'U bent ingeschreven op de les'
 					);
 					
-				}else{
+				} else {
 					
 					$session->getFlashBag()->add(
 						'error',
@@ -161,19 +172,16 @@
 				}
 				
 				
-				
-				
-				
 				return $this->redirectToRoute('inschrijvenOpLes');
 			}
 			
 			
 		}
-	
+		
 		/**
 		 * @Route("lid/uitschrijvenOpLes/{id}", name="uitschrijvenOpLes")
 		 */
-		public function uitschrijvenOpLes($id, EntityManagerInterface $em,SessionInterface $session)
+		public function uitschrijvenOpLes($id, EntityManagerInterface $em, SessionInterface $session)
 		{
 			
 			$registration = $this->getDoctrine()->getRepository(Registration::class)->findOneBy(['id' => $id]);
@@ -197,7 +205,7 @@
 		/**
 		 * @Route("lid/inschrijvingen", name="inschrijvingen")
 		 */
-		public function inschrijvingen(EntityManagerInterface $em,SessionInterface $session)
+		public function inschrijvingen(EntityManagerInterface $em, SessionInterface $session)
 		{
 			
 			$registered_lessons = $this->getDoctrine()->getRepository(Registration::class)->findBy(array('member' => $this->getUser()->getId()));

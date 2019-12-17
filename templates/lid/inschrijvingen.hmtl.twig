@@ -24,9 +24,15 @@
                                 Datum: <span
                                         class="font-weight-bold text-secondary">{{ registration.lesson.date|date('j F Y') }}</span>
                             </p>
+                            {% if registration.lesson.training.costs > 0 %}
+                                <p class="card-text text-muted mb-0">
+                                    Kosten: <span
+                                            class="font-weight-bold text-secondary">&euro;{{ registration.lesson.training.costs }} <span class="text-muted font-weight-normal">Betaald:</span> {% if registration.payment %}{{ "Ja" }}{% else %}{{ 'Nee' }}{% endif %}</span>
+                                </p>
+                            {% endif %}
                             <p class="card-text text-muted">
-                                Betaald: <span
-                                        class="font-weight-bold text-secondary">{% if registration.payment %}{{ "Ja" }}{% else %}{{ 'Nee' }}<span class="text-muted font-weight-normal">{{ ' neem contact op met de administratie op deze les te betalen' }}</span>{% endif %}</span>
+                                Instructeur: <span
+                                        class="font-weight-bold text-secondary">{{ registration.lesson.instructor.firstname }}</span>
                             </p>
                             <a class="btn btn-outline-danger" href="{{ path('uitschrijvenOpLes', {id: registration.id}) }}">Uitschrijven</a>
                         </div>

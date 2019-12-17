@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Leden
+{% endblock %}
+
+{% block body %}
+
+    {% for lid in leden %}
+        <div class="card mt-3 {% if lid.isDisabled %}{{ 'text-muted' }}{% endif %}">
+            <div class="card-body">
+                <div class="card-title font-weight-bold">
+                    {{ lid.firstname }} {{ lid.lastname }}
+                    {% if lid.isDisabled %}<span class="badge badge-danger">Non-Actief</span>{% endif %}
+                </div>
+                <div class="card-text">
+                    <a class="badge badge-warning" data-toggle="collapse" href="#collapseExample{{ lid.id }}"
+                       role="button" aria-expanded="false" aria-controls="collapseExample{{ lid.id }}">
+                        Meer info
+                    </a>
+                    <div class="collapse" id="collapseExample{{ lid.id }}">
+                        <ul class="list-group-flush m-0 p-0">
+                            <li class="list-group-item bg-transparent"><span
+                                        class="font-weight-bold">Geboorte datum:</span> {{ lid.dateofbirth|date('j F Y') }}
+                            </li>
+                            <li class="list-group-item bg-transparent"><span
+                                        class="font-weight-bold">Geslacht:</span> {% if lid.gender %}{{ "Man" }}{% else %}{{ "Vrouw" }}{% endif %}
+                            </li>
+                            <li class="list-group-item bg-transparent"><span
+                                        class="font-weight-bold">Email adres:</span> <a class="text-secondary"
+                                                                                        href="mailto:{{ lid.emailaddress }}">{{ lid.emailaddress }}</a>
+                            </li>
+                            <li class="list-group-item bg-transparent"><span
+                                        class="font-weight-bold">Straat:</span> {{ lid.street }}</li>
+                            <li class="list-group-item bg-transparent"><span
+                                        class="font-weight-bold">Postcode:</span> {{ lid.postalcode }}</li>
+                            <li class="list-group-item bg-transparent"><span
+                                        class="font-weight-bold">Woonplaats:</span> {{ lid.place }}</li>
+                            <li class="list-group-item"><a class="badge badge-dark" href="#">Bekijk lessen</a></li>
+                            {% if lid.isDisabled %}
+                                <li class="list-group-item"><a class="badge badge-success" href="#">Zet op actief</a>
+                                </li>{% else %}
+                                <li class="list-group-item"><a class="badge badge-danger" href="#">Zet op inactief</a>
+                                </li>{% endif %}
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

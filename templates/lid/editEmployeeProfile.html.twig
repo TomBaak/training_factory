@@ -1,0 +1,21 @@
+{% extends 'bezoeker.html.twig' %}
+
+{% block title %}Profiel Wijzigen{% endblock %}
+
+{% block body %}
+    <h1 class="text-warning mb-4">Profiel wijzigen</h1>
+    {{ form_start(registrationForm,{'attr': {'novalidate':'novalidate'}}) }}
+    <span class="text-danger">
+        {{ form_errors(registrationForm) }}
+    </span>
+    {{ form_row(registrationForm.emailaddress) }}
+    <hr class="bg-secondary">
+    {{ form_row(registrationForm.firstname) }}
+    {{ form_row(registrationForm.lastname) }}
+    {{ form_row(registrationForm.dateofbirth) }}
+    <hr class="bg-secondary">
+
+    <input type="submit" class="btn btn-warning w-100 text-white" value="Wijzig profiel">
+    {{ form_end(registrationForm) }}
+    {{ form_widget(registrationForm) }}
+{% endblock %}

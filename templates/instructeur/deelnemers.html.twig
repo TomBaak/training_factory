@@ -7,23 +7,23 @@
 {% block body %}
     <h2 class="text-secondary">Deelnemers</h2>
 
-    <table class="table w-100">
-        {% for registration in lesson.registrations %}
-            <tr>
+    {% for registration in lesson.registrations %}
 
-                <td class="p-3"><p class="mb-0">Naam: <span
-                                class="text-secondary font-weight-bold">{{ registration.member.firstname }} {{ registration.member.lastname }}</span>
-                    </p></td>
-                <td class="p-3"><p class="mb-0">Betaald: <span
-                                class="font-weight-bold">{% if registration.payment %}<span
-                                    class="text-success"><i class="far fa-check-square"></i></span><td></td>{% else %}<span
-                                    class="text-danger"><i class="far fa-square text-danger"></i></span></span></p></td>
-                <td class="p-3"><a href="{{ path("deelnemerPayed", {id:registration.id }) }}"
-                                   class="btn btn-success ml-2">Deelnemer heeft betaald</a></td>
+        <div class="card mt-3 {% if registration.payment or lesson.training.costs == NULL %}{% else %}{{ 'bg-danger' }}{% endif %}">
+            <div class="card-body">
+                <p class="mb-0 {% if registration.payment or lesson.training.costs == NULL %}{% else %}{{ 'text-white' }}{% endif %}">Naam: <span
+                            class="font-weight-bold">{{ registration.member.firstname }} {{ registration.member.lastname }}</span>
+                    {% if lesson.training.costs > 0 %}
+                    <td class="p-3"><p class="mb-0 {% if registration.payment or lesson.training.costs == NULL %}{% else %}{{ 'text-white' }}{% endif %}    ">Betaald: <span
+                            class="font-weight-bold">{% if registration.payment %}<span
+                                class="text-success"><i class="far fa-check-square text-dark"></i></span>{% else %}<span
+                                class="text-danger"><a href="{{ path("deelnemerPayed", {id:registration.id }) }}"
+                                                       class="far fa-square text-dark"></a></span></span></p></td>
                 {% endif %}
-            </tr>
-        {% endfor %}
-    </table>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
 
 {% endblock %}
 
