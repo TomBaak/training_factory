@@ -3,7 +3,9 @@
 	
 	namespace App\Controller;
 	
+	use App\Entity\Lesson;
 	use App\Entity\Person;
+	use App\Entity\Registration;
 	use App\Entity\Training;
 	use App\Form\TrainingType;
 	use Doctrine\ORM\EntityManagerInterface;
@@ -129,7 +131,17 @@
 		 */
 		public function leden(EntityManagerInterface $em){
 			
-			$leden = $this->getDoctrine()->getRepository(Person::class)->findAll();
+			$result = $this->getDoctrine()->getRepository(Person::class)->findAll();
+			
+			$leden = [];
+			
+			foreach($result as $person){
+				
+				if(array_search("ROLE_TRAINER" ,$person->getRoles()) === false && array_search("ROLE_ADMIN" ,$person->getRoles()) === false){
+					array_push($leden, $person);
+				}
+				
+			}
 			
 			return $this->render('administratie/leden.html.twig',[
 				
@@ -139,5 +151,71 @@
 			
 			
 		}
+		
+		/**
+		 * @Route("administratie/instructeurs", name="instructeurs")
+		 */
+		public function instructeurs(EntityManagerInterface $em){
+			
+			$result = $this->getDoctrine()->getRepository(Person::class)->findAll();
+			
+			$employees = [];
+			
+			foreach($result as $person){
+				
+				if(array_search("ROLE_TRAINER" ,$person->getRoles()) !== false){
+					array_push($employees, $person);
+				}
+				
+			}
+			
+			return $this->render('administratie/instructeurs.html.twig',[
+				
+				'leden' => $employees
+			
+			]);
+			
+			
+		}
+		
+		/**
+		 * @Route("administratie/lessen", name="lessenPerson")
+		 */
+		public function lessenPerson(EntityManagerInterface $em, Request $request){
+			
+			$registered_lessons = $this->getDoctrine()->getRepository(Registration::class)->findBy(array('member' => $request->get('id')));
+
+			
+			$person = $this->getDoctrine()->getRepository(Person::class)->findOneBy(array('id' => $request->get('id')));
+			
+			return $this->render('administratie\lessen.html.twig', [
+				
+				'person' => $person,
+				'registrations' => $registered_lessons
+			
+			]);
+			
+			
+		}
+		
+		/**
+		 * @Route("administratie/lessenEmployee", name="lessenEmployee")
+		 */
+		public function lessenEmployee(EntityManagerInterface $em, Request $request){
+
+			$registered_lessons = $this->getDoctrine()->getRepository(Lesson::class)->findBy(array('instructor' => $request->get('id')));
+			
+			$person = $this->getDoctrine()->getRepository(Person::class)->findOneBy(array('id' => $request->get('id')));
+			
+			return $this->render('administratie\lessenEmployee.html.twig', [
+				
+				'person' => $person,
+				'lessons' => $registered_lessons
+			
+			]);
+			
+			
+		}
+		
 		
 	}

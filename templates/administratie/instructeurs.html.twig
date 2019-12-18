@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Leden
+    Instructeurs
 {% endblock %}
 
 {% block body %}
@@ -30,13 +30,7 @@
                                         class="font-weight-bold">Email adres:</span> <a class="text-secondary"
                                                                                         href="mailto:{{ lid.emailaddress }}">{{ lid.emailaddress }}</a>
                             </li>
-                            <li class="list-group-item bg-transparent"><span
-                                        class="font-weight-bold">Straat:</span> {{ lid.street }}</li>
-                            <li class="list-group-item bg-transparent"><span
-                                        class="font-weight-bold">Postcode:</span> {{ lid.postalcode }}</li>
-                            <li class="list-group-item bg-transparent"><span
-                                        class="font-weight-bold">Woonplaats:</span> {{ lid.place }}</li>
-                            <li class="list-group-item"><a class="badge badge-dark" href="{{ path('lessenPerson', {id: lid.id, type: 'user'}) }}">Bekijk lessen</a></li>
+                            <li class="list-group-item"><a class="badge badge-dark" href="{{ path('lessenEmployee', {id: lid.id, type: 'trainer'}) }}">Bekijk lessen</a></li>
                             {% if lid.isDisabled %}
                                 <li class="list-group-item"><a class="badge badge-success" href="#">Zet op actief</a>
                                 </li>{% else %}

@@ -10,7 +10,7 @@
     <a class="text-dark" href="{{ path('trainingen') }}">Klik hier om alle training te bekijken</a>
 
     {% if "ROLE_TRAINER" in app.user.getRoles %}
-        <a class="btn btn-success mt-2 mb-2 w-100" href="{{ path('instructeur_lessen_new') }}">Nieuwe les</a>
+        <a class="btn btn-success mt-2 mb-2 w-100" href="{{ path('instructeur_lessen') }}">Nieuwe les</a>
     {% endif %}
 
     {#   Makes the bar with the dates for the lessons#}
@@ -18,19 +18,19 @@
         {% if subpage %}
             <li class="nav-item">
                 <a class="badge badge-pill badge-secondary ml-1 mr-1 text-decoration-none p-2 pl-3 pr-3 mb-2"
-                   href="{{ path('inschrijvenOpLes') }}">Alle lessen</a>
+                   href="{% if "ROLE_TRAINER" in app.user.getRoles %}{{ path('instructeur_lessen') }}{%else%}{{ path('inschrijvenOpLes') }}{%endif%}">Alle lessen</a>
             </li>
         {% endif %}
         {% for date in dates %}
             {% if date == today_date %}
                 <li class="nav-item">
                     <a class="badge badge-pill badge-secondary ml-1 mr-1 text-decoration-none p-2 pl-3 pr-3 mb-2 {% if date == curr_date %}{{ "focus" }}{% endif %}"
-                       href="{{ path('inschrijvenOpLes', {date: date|date("d-m-Y")}) }}">Vandaag</a>
+                       href="{% if "ROLE_TRAINER" in app.user.getRoles %}{{ path('instructeur_lessen', {date: date|date("d-m-Y")}) }}{%else%}{{ path('inschrijvenOpLes') }}{%endif%}">Vandaag</a>
                 </li>
             {% else %}
                 <li class="nav-item">
                     <a class="badge badge-pill badge-secondary ml-1 mr-1 text-decoration-none p-2 mb-2 {% if date == curr_date %}{{ "focus" }}{% endif %}"
-                       href="{{ path('inschrijvenOpLes', {date: date|date("d-m-Y")}) }}">{{ date|date("l j M") }}</a>
+                       href="{% if "ROLE_TRAINER" in app.user.getRoles %}{{ path('instructeur_lessen', {date: date|date("d-m-Y")}) }}{%else%}{{ path('inschrijvenOpLes', {date: date|date("d-m-Y")}) }}{%endif%}">{{ date|date("l j M") }}</a>
                 </li>
             {% endif %}
         {% endfor %}

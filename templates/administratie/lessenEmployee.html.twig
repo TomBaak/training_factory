@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h3 class="mt-4 text-secondary">Lessen <span class="text-muted">van {{ person.firstname }} {{ person.lastname }}</span></h3>
+    <hr class="bg-secondary">
+
+    {% if lessons %}
+        {% for lesson in lessons %}
+            <div class="card mb-3 w-100">
+                <div class="row no-gutters">
+                    <div class="col">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ lesson.training.name }}</h5>
+                            <p class="card-text text-muted mb-0">
+                                Aantal ingeschreven deelnemers: <span
+                                        class="font-weight-bold text-secondary">{{ lesson.registrations|length }}</span>
+                            </p>
+                            <p class="card-text text-muted mb-0">
+                                Tijd: <span
+                                        class="font-weight-bold text-secondary">{{ lesson.time|date('H:i') }}</span>
+                            </p>
+                            <p class="card-text text-muted mb-0">
+                                Datum: <span
+                                        class="font-weight-bold text-secondary">{{ lesson.date|date('j F Y') }}</span>
+                            </p>
+                            {% if lesson.training.costs > 0 %}
+                                <p class="card-text text-muted mb-0">
+                                    Kosten: <span
+                                            class="font-weight-bold text-secondary">&euro;{{ lesson.training.costs }} <span
+                                                class="text-muted font-weight-normal">Betaald:</span> {% if payment %}{{ "Ja" }}{% else %}{{ 'Nee' }}{% endif %}</span>
+                                </p>
+                            {% endif %}
+                            <p class="card-text text-muted">
+                                Instructeur: <span
+                                        class="font-weight-bold text-secondary">{{ lesson.instructor.firstname }}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+
+        <h5>{{ person.firstname }} {{ person.lastname }} heeft geen lessen
+        </h5>
+
+    {% endif %}
+
+{% endblock %}

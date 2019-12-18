@@ -8,6 +8,7 @@
 	use App\Entity\Person;
 	use App\Entity\Registration;
 	use App\Form\LessonType;
+	use DateTime;
 	use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 	use Doctrine\ORM\EntityManagerInterface;
 	use Symfony\Component\HttpFoundation\Request;
@@ -44,51 +45,49 @@
 		public function instructeurLessen(Request $request)
 		{
 			//TODO: Catch wrong GET
-			
+
 			$lessen = [];
 			
 			$subpage = false;
 			
+			$request_date = 0;
+			
+			$onlyAvailable = false;
+			
+			$today = $date = new DateTime(date("Y-m-d") ,new \DateTimeZone('Europe/Amsterdam'));
+			
+			$selected_date = new DateTime(date("Y-m-d", 01-01-01) ,new \DateTimeZone('Europe/Amsterdam'));;
+			
 			if ($request->query->get('date') != NULL) {
-				$lessen = $this->getDoctrine()->getRepository(Lesson::class)->findBy([
-					
-					'date' => new \DateTime($request->query->get('date'), new \DateTimeZone('Europe/Amsterdam')),
-					'instructor' => $this->getUser()->getId()
-				
-				]);
+				$request_date = $request->query->get('date');
+				$selected_date = new \DateTime($request_date, new \DateTimeZone('Europe/Amsterdam'));
+				$lessen = $this->getDoctrine()->getRepository(Lesson::class)->findBy(['date' => $selected_date, 'instructor' => $this->getUser()->getId()]);
 				$subpage = true;
 			} else {
-				$lessen = $this->getDoctrine()->getRepository(Lesson::class)->findBy([
-					
-					'instructor' => $this->getUser()->getId()
-				
-				]);
+				$lessen = $this->getDoctrine()->getRepository(Lesson::class)->findBy(['instructor' => $this->getUser()->getId()]);
 				$subpage = false;
 			}
 			
+			$maxDates = 18;
+			
 			$dates = [];
 			
-			usort($lessen, function ($a, $b) {
-				if ($a->getDate() == $b->getDate()) {
-					return 0;
-				}
-				return ($a->getDate() < $b->getDate()) ? -1 : 1;
-			});
-			
-			//Fills $date with the all the different dates of the lessen and makes sure there are no duplicate dates
-			foreach ($lessen as &$les) {
-				
-				if (array_search($les->getDate(), $dates) === false) {
-					array_push($dates, $les->getDate());
-				}
-				
+			//generates array of dates with the amount of days ($maxDates) after today !!ONLY FOR THE DATE CHOOSING NOT FOR THE LESSONS THAT ARE DISPLAYED BY DEFAULT!!
+			for ($i = 0; $i < $maxDates; $i++) {
+				$date = new DateTime(date("Y-m-d") ,new \DateTimeZone('Europe/Amsterdam'));
+				date_add($date, date_interval_create_from_date_string($i . 'day'));
+				array_push($dates, $date);
 			}
+			
+			//TODO: Bug lessons arent sorted
 			
 			return $this->render('lid/lessenAanbod.html.twig', [
 				
 				'lessen' => $lessen,
 				'dates' => $dates,
-				'subpage' => $subpage
+				'subpage' => $subpage,
+				'today_date' => $today,
+				'curr_date' => $selected_date
 			
 			]);
 		}
