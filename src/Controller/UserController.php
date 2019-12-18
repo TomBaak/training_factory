@@ -11,6 +11,9 @@
 	use App\Form\LessonType;
 	use App\Form\PersonEditType;
 	use App\Form\PersonType;
+	use DateInterval;
+	use DatePeriod;
+	use DateTime;
 	use Doctrine\ORM\EntityManagerInterface;
 	use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 	use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -99,34 +102,51 @@
 			
 			$request_date = 0;
 			
+			$onlyAvailable = false;
+			
+			
+			$today = $date = new DateTime(date("Y-m-d") ,new \DateTimeZone('Europe/Amsterdam'));
+			
+			$selected_date = new DateTime(date("Y-m-d", 01-01-01) ,new \DateTimeZone('Europe/Amsterdam'));;
+			
 			if ($request->query->get('date') != NULL) {
 				$request_date = $request->query->get('date');
-				$lessen = $this->getDoctrine()->getRepository(Lesson::class)->findBy(['date' => new \DateTime($request_date, new \DateTimeZone('Europe/Amsterdam'))]);
+				$selected_date = new \DateTime($request_date, new \DateTimeZone('Europe/Amsterdam'));
+				$lessen = $this->getDoctrine()->getRepository(Lesson::class)->findBy(['date' => $selected_date]);
 				$subpage = true;
 			} else {
 				$lessen = $this->getDoctrine()->getRepository(Lesson::class)->findAll();
 				$subpage = false;
 			}
 			
+			$maxDates = 18;
+			
 			$dates = [];
 			
-			$maxDates = 3;
+//			if($onlyAvailable){
+//				//Fills $date with the all the different dates of the lessen and makes sure there are no duplicate dates
+//				foreach ($lessen as &$les) {
+//
+//					if (array_search($les->getDate(), $dates) === false) {
+//						array_push($dates, $les->getDate());
+//					}
+//
+//				}
+//
+//				usort($lessen, function ($a, $b) {
+//					if ($a->getDate() == $b->getDate()) {
+//						return 0;
+//					}
+//					return ($a->getDate() < $b->getDate()) ? -1 : 1;
+//				});
+//			}
 			
-			//Fills $date with the all the different dates of the lessen and makes sure there are no duplicate dates
-			foreach ($lessen as &$les) {
-				
-				if (array_search($les->getDate(), $dates) === false) {
-					array_push($dates, $les->getDate());
-				}
-				
+			//generates array of dates with the amount of days ($maxDates) after today !!ONLY FOR THE DATE CHOOSING NOT FOR THE LESSONS THAT ARE DISPLAYED BY DEFAULT!!
+			for ($i = 0; $i < $maxDates; $i++) {
+				$date = new DateTime(date("Y-m-d") ,new \DateTimeZone('Europe/Amsterdam'));
+				date_add($date, date_interval_create_from_date_string($i . 'day'));
+				array_push($dates, $date);
 			}
-			
-			usort($lessen, function ($a, $b) {
-				if ($a->getDate() == $b->getDate()) {
-					return 0;
-				}
-				return ($a->getDate() < $b->getDate()) ? -1 : 1;
-			});
 			
 			return $this->render('lid/lessenAanbod.html.twig', [
 				
@@ -134,7 +154,8 @@
 				'lessen' => $lessen,
 				'dates' => $dates,
 				'subpage' => $subpage,
-				'curr_date' => $request_date
+				'today_date' => $today,
+				'curr_date' => $selected_date
 			
 			]);
 		}

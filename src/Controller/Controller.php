@@ -97,6 +97,7 @@
 					$newPerson->getPassword()
 				));
 				
+				$newPerson->setIsDisabled(0);
 				$newPerson->setLoginname(str_replace(' ', '', strtolower($newPerson->getFirstname() . $newPerson->getLastname())));
 				
 				$em->persist($newPerson);
