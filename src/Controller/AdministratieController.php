@@ -9,6 +9,7 @@
 	use App\Entity\Training;
 	use App\Form\TrainingType;
 	use Doctrine\ORM\EntityManagerInterface;
+	use MongoDB\Driver\Session;
 	use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 	use Symfony\Component\HttpFoundation\Request;
 	use Symfony\Component\HttpFoundation\Response;
@@ -217,5 +218,65 @@
 			
 		}
 		
+		/**
+		 * @Route("administratie/gebruikerNonActief", name="nonActiefToggle")
+		 */
+		public function nonActiefToggle(EntityManagerInterface $em, Request $request, SessionInterface $session){
+			
+			$person = $this->getDoctrine()->getRepository(Person::class)->findOneBy(array('id' => $request->get('id')));
+			
+			if($person->getIsDisabled()){
+				$isDisabled = false;
+				$session->getFlashBag()->add(
+					'success',
+					'Gebruiker op Actief gezet'
+				);
+			}else{
+				$isDisabled = true;
+				$session->getFlashBag()->add(
+					'success',
+					'Gebruiker op In-Actief gezet'
+				);
+			}
+			
+			$person->setIsDisabled($isDisabled);
+			
+			$em->persist($person);
+			
+			$em->flush();
+			
+			
+			
+			return $this->redirectToRoute($request->get('prev_page'));
+			
+		}
+		
+		/**
+		 * @Route("administratie/gebruikerVerwijderen", name="gebruikerVerwijderen")
+		 */
+		public function gebruikerVerwijderen(EntityManagerInterface $em, Request $request, SessionInterface $session){
+			
+			$person = $this->getDoctrine()->getRepository(Person::class)->findOneBy(array('id' => $request->get('id')));
+			
+			$em->remove($person);
+			
+			$em->flush();
+			
+			$session->getFlashBag()->add(
+				'success',
+				'Account instructeur is verwijderd'
+			);
+			
+			return $this->redirectToRoute('instructeurs');
+		}
+		
+		/**
+		 * @Route("administratie/test", name="test")
+		 */
+		public function test(EntityManagerInterface $em, Request $request, SessionInterface $session){
+			
+			$this->getUser()->getOmzet();
+			
+		}
 		
 	}

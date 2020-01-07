@@ -18,6 +18,7 @@
                        role="button" aria-expanded="false" aria-controls="collapseExample{{ lid.id }}">
                         Meer info
                     </a>
+                    <a class="badge badge-danger" href="{{ path('gebruikerVerwijderen', {id: lid.id}) }}">Verwijder account</a>
                     <div class="collapse" id="collapseExample{{ lid.id }}">
                         <ul class="list-group-flush m-0 p-0">
                             <li class="list-group-item bg-transparent"><span
@@ -32,11 +33,10 @@
                             </li>
                             <li class="list-group-item"><a class="badge badge-dark" href="{{ path('lessenEmployee', {id: lid.id, type: 'trainer'}) }}">Bekijk lessen</a></li>
                             {% if lid.isDisabled %}
-                                <li class="list-group-item"><a class="badge badge-success" href="#">Zet op actief</a>
+                                <li class="list-group-item"><a class="badge badge-success" href="{{ path('nonActiefToggle', {id: lid.id, prev_page: 'instructeurs'}) }}">Zet op actief</a>
                                 </li>{% else %}
-                                <li class="list-group-item"><a class="badge badge-danger" href="#">Zet op inactief</a>
+                                <li class="list-group-item"><a class="badge badge-danger" href="{{ path('nonActiefToggle', {id: lid.id, prev_page: 'instructeurs'}) }}">Zet op inactief</a>
                                 </li>{% endif %}
-
                         </ul>
                     </div>
                 </div>

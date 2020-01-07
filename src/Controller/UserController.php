@@ -166,11 +166,45 @@
 		public function nieuweInschrijving($id, EntityManagerInterface $em, SessionInterface $session)
 		{
 			
+			if($this->getUser()->getIsDisabled()){
+				$session->getFlashBag()->add(
+					'error',
+					'Uw account is op inactief gezet door de administrator hierdoor kan u uwzelf niet meer inschrijven op lessen.
+					Neem contact op voor meer informatie.'
+				);
+				
+				return $this->redirectToRoute('inschrijvenOpLes');
+			}
+			
 			if ($this->getDoctrine()->getRepository(Lesson::class)->findOneBy(['id' => $id]) != NULL) {
 				$registration = new Registration();
 				
+				$lesson = $this->getDoctrine()->getRepository(Lesson::class)->findOneBy(['id' => $id]);
+				$curr_date = new DateTime(date('Y-m-d'), new \DateTimeZone('Europe/Amsterdam'));
+				
+				if($lesson->getDate() < $curr_date){
+					
+					$session->getFlashBag()->add(
+						'error',
+						'U kunt zich niet inschrijven op een les in het verleden!'
+					);
+					
+					return $this->redirectToRoute('inschrijvenOpLes');
+					
+				}
+				
+				if(count($lesson->getRegistrations()) <= $lesson->getMaxPersons()){
+					$session->getFlashBag()->add(
+						'warning',
+						'Het maximaal aantal inschrijvingen is al bereikt! Controleer de beschikbaarheid later nog een keer.'
+					);
+					
+					return $this->redirectToRoute('inschrijvenOpLes');
+				}
+				
 				$registration->setMember($this->getUser());
-				$registration->setLesson($this->getDoctrine()->getRepository(Lesson::class)->findOneBy(['id' => $id]));
+				
+				$registration->setLesson($lesson);
 				$registration->setPayment(false);
 				
 				if ($this->getDoctrine()->getRepository(Registration::class)->findBy(array('member' => $this->getUser()->getId(), 'lesson' => $id)) == NULL) {

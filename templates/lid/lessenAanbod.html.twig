@@ -10,7 +10,7 @@
     <a class="text-dark" href="{{ path('trainingen') }}">Klik hier om alle training te bekijken</a>
 
     {% if "ROLE_TRAINER" in app.user.getRoles %}
-        <a class="btn btn-success mt-2 mb-2 w-100" href="{{ path('instructeur_lessen') }}">Nieuwe les</a>
+        <a class="btn btn-success mt-2 mb-2 w-100" href="{{ path('instructeur_lessen_new') }}">Nieuwe les</a>
     {% endif %}
 
     {#   Makes the bar with the dates for the lessons#}

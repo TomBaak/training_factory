@@ -11,7 +11,7 @@
             <div class="card-body">
                 <div class="card-title font-weight-bold">
                     {{ lid.firstname }} {{ lid.lastname }}
-                    {% if lid.isDisabled %}<span class="badge badge-danger">Non-Actief</span>{% endif %}
+                    {% if lid.isDisabled %}<span class="badge badge-danger">InActief</span>{% endif %}
                 </div>
                 <div class="card-text">
                     <a class="badge badge-warning" data-toggle="collapse" href="#collapseExample{{ lid.id }}"
@@ -38,9 +38,9 @@
                                         class="font-weight-bold">Woonplaats:</span> {{ lid.place }}</li>
                             <li class="list-group-item"><a class="badge badge-dark" href="{{ path('lessenPerson', {id: lid.id, type: 'user'}) }}">Bekijk lessen</a></li>
                             {% if lid.isDisabled %}
-                                <li class="list-group-item"><a class="badge badge-success" href="#">Zet op actief</a>
+                                <li class="list-group-item"><a class="badge badge-success" href="{{ path('nonActiefToggle', {id: lid.id, prev_page: 'leden'}) }}">Zet op actief</a>
                                 </li>{% else %}
-                                <li class="list-group-item"><a class="badge badge-danger" href="#">Zet op inactief</a>
+                                <li class="list-group-item"><a class="badge badge-danger" href="{{ path('nonActiefToggle', {id: lid.id, prev_page: 'leden'}) }}">Zet op inactief</a>
                                 </li>{% endif %}
 
                         </ul>

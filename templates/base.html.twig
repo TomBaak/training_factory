@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{{ asset('css/theme_TF.css') }}">
     <link rel="stylesheet" href="{{ asset('css/overwrite.css') }}">
     <link rel="icon" href="{{ asset('img/logo.ico') }}">
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block header %}
@@ -121,6 +122,15 @@
                     </div>
                 {% endfor %}
 
+                {% for flashMessage in app.session.flashbag.get('warning') %}
+                    <div class="alert alert-warning alert-dismissible fade show mb-2 mt-2" role="alert">
+                        <strong>{{ flashMessage }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+
                 {% for flashMessage in app.session.flashbag.get('success') %}
                     <div class="alert alert-success alert-dismissible fade show mb-2 mt-2" role="alert">
                         <strong>{{ flashMessage }}</strong>
@@ -129,6 +139,7 @@
                         </button>
                     </div>
                 {% endfor %}
+
 
             {% endblock %}
             {% block body %}

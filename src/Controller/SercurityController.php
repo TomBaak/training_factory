@@ -24,7 +24,6 @@
 		 */
 		public function login(Request $request, AuthenticationUtils $authenticationUtils)
 		{
-			
 			if ($this->session->get('user') != NULL) {
 				return $this->redirectToRoute('profile');
 			}
