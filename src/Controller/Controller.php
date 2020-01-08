@@ -83,7 +83,7 @@
 		/**
 		 * @Route("/register", name="register")
 		 */
-		public function register(Request $request, EntityManagerInterface $em)
+		public function register(Request $request, EntityManagerInterface $em, SessionInterface $session)
 		{
 			$form = $this->createForm(PersonType::class);
 			
@@ -102,6 +102,11 @@
 				
 				$em->persist($newPerson);
 				$em->flush();
+				
+				$session->getFlashBag()->add(
+					'success',
+					'Account succesvol aangemaakt'
+				);
 				
 				return $this->redirectToRoute('login');
 			}

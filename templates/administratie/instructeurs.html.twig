@@ -6,6 +6,8 @@
 
 {% block body %}
 
+    <a class="btn btn-success w-100" href="{{ path('registerInstructeur') }}">Nieuwe instructeur aanmaken</a>
+
     {% for lid in leden %}
         <div class="card mt-3 {% if lid.isDisabled %}{{ 'text-muted' }}{% endif %}">
             <div class="card-body">

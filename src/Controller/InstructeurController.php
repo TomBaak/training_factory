@@ -95,7 +95,7 @@
 		/**
 		 * @Route("/instructeur/lessen/new", name="instructeur_lessen_new")
 		 */
-		public function instructeurLessenNew(Request $request, EntityManagerInterface $em)
+		public function instructeurLessenNew(Request $request, EntityManagerInterface $em, SessionInterface $session)
 		{
 			$form = $this->createForm(LessonType::class);
 			
@@ -109,6 +109,11 @@
 				$em->persist($lesson);
 				$em->flush();
 				
+				$session->getFlashBag()->add(
+					'success',
+					'Les aangemaakt'
+				);
+				
 				return $this->redirectToRoute('instructeur_lessen');
 			}
 			
@@ -119,7 +124,7 @@
 		/**
 		 * @Route("/instructeur/lessen/edit/{id}", name="edit_lesson")
 		 */
-		public function updateTraining(Lesson $lesson, $id, Request $request, EntityManagerInterface $em)
+		public function updateTraining(Lesson $lesson, $id, Request $request, EntityManagerInterface $em, SessionInterface $session)
 		{
 			
 			$lesson_current = $this->getDoctrine()->getRepository(Lesson::class)->findOneBy(array('id' => $id));
@@ -138,6 +143,11 @@
 				$em->persist($lesson);
 				$em->flush();
 				
+				$session->getFlashBag()->add(
+					'success',
+					'Les aangepast'
+				);
+				
 				return $this->redirectToRoute('instructeur_lessen');
 			}
 			
@@ -153,13 +163,18 @@
 		/**
 		 * @Route("/instructeur/lessen/remove/{id}", name="delete_lesson")
 		 */
-		public function deleteTraining($id, EntityManagerInterface $em)
+		public function deleteTraining($id, EntityManagerInterface $em, SessionInterface $session)
 		{
 			
 			$lesson = $this->getDoctrine()->getRepository(Lesson::class)->findOneBy(array('id' => $id));
 			
 			$em->remove($lesson);
 			$em->flush();
+			
+			$session->getFlashBag()->add(
+				'success',
+				'Les verwijderd'
+			);
 			
 			return $this->redirectToRoute('instructeur_lessen');
 			

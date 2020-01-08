@@ -50,7 +50,7 @@
 		/**
 		 * @Route("lid/profiel/edit/{id}", name="profileEdit")
 		 */
-		public function editProfile($id, Request $request, EntityManagerInterface $em, Person $person)
+		public function editProfile($id, Request $request, EntityManagerInterface $em, Person $person, SessionInterface $session)
 		{
 			$person_current = $this->getDoctrine()->getRepository(Person::class)->findOneBy(array('id' => $id));
 			
@@ -74,6 +74,11 @@
 				
 				$em->persist($person);
 				$em->flush();
+				
+				$session->getFlashBag()->add(
+					'success',
+					'Profiel aangepast'
+				);
 				
 				return $this->redirectToRoute('profile');
 			}

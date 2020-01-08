@@ -9,20 +9,7 @@
     <span class="text-danger">
         {{ form_errors(registrationForm) }}
     </span>
-    {{ form_row(registrationForm.emailaddress) }}
-    {{ form_row(registrationForm.password) }}
-    <hr class="bg-secondary">
-    {{ form_row(registrationForm.preprovision) }}
-    {{ form_row(registrationForm.firstname) }}
-    {{ form_row(registrationForm.lastname) }}
-    {{ form_row(registrationForm.gender) }}
-    {{ form_row(registrationForm.dateofbirth) }}
-    <hr class="bg-secondary">
-    {{ form_row(registrationForm.street) }}
-    {{ form_row(registrationForm.postalcode) }}
-    {{ form_row(registrationForm.place) }}
-    <input type="submit" class="btn btn-success w-100" value="Registreren">
-    {{ form_end(registrationForm) }}
     {{ form_widget(registrationForm) }}
-
+    <input type="submit" class="form-control btn btn-success" value="Registreren">
+    {{ form_end(registrationForm) }}
 {% endblock %}
