@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Instructeurs
+{% endblock %}
+
+{% block body %}
+
+    <h2>Omzet van {{ inst.firstname }} {{ inst.lastname }}</h2>
+
+    <table class="table table-striped mt-2">
+        <thead>
+        <th>Maand</th>
+        <th>Omzet</th>
+        </thead>
+        <tbody>
+        {% for date in inst.getOmzet().usedDates %}
+            <tr>
+                <td>
+                    {{ date|date('F Y') }}
+                </td>
+                {% set found = false %}
+                {% for total in inst.getOmzet().maandOmzetten%}
+
+                    {% if total.getDate() == date %}
+                        <td>
+                            <p class="mb-0">
+                                &euro; {{ total.getOmzet()|number_format(2, ',', '.') }}</p></td>
+                        {% set found = true %}
+                    {% endif %}
+
+                {% endfor %}
+                {% if found == false %}
+                    <td>&euro; 0,00</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

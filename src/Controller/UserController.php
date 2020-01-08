@@ -123,24 +123,6 @@
 			
 			$dates = [];
 			
-//			if($onlyAvailable){
-//				//Fills $date with the all the different dates of the lessen and makes sure there are no duplicate dates
-//				foreach ($lessen as &$les) {
-//
-//					if (array_search($les->getDate(), $dates) === false) {
-//						array_push($dates, $les->getDate());
-//					}
-//
-//				}
-//
-//				usort($lessen, function ($a, $b) {
-//					if ($a->getDate() == $b->getDate()) {
-//						return 0;
-//					}
-//					return ($a->getDate() < $b->getDate()) ? -1 : 1;
-//				});
-//			}
-			
 			//generates array of dates with the amount of days ($maxDates) after today !!ONLY FOR THE DATE CHOOSING NOT FOR THE LESSONS THAT ARE DISPLAYED BY DEFAULT!!
 			for ($i = 0; $i < $maxDates; $i++) {
 				$date = new DateTime(date("Y-m-d") ,new \DateTimeZone('Europe/Amsterdam'));

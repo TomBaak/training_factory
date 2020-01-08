@@ -3,6 +3,8 @@
 	namespace App\Entity;
 	
 	use App\classes\MaandOmzet;
+	use DateInterval;
+	use DatePeriod;
 	use DateTime;
 	use Doctrine\Common\Collections\ArrayCollection;
 	use Doctrine\Common\Collections\Collection;
@@ -421,23 +423,68 @@
 			
 			$usedDates = [];
 			
+			
 			foreach ($lessons as $lesson) {
 				$aantalDeelnemers = count($lesson->getRegistrations());
 				if ($lesson->getDate() < $curr_date || $aantalDeelnemers > 0) {
-					if ($aantalDeelnemers > 0) {
+						
 						$omzet = $aantalDeelnemers * $lesson->getTraining()->getCosts();
-						$maandOmzet = new MaandOmzet($lesson->getDate(), $omzet);
-						array_push($maandOmzetten, $maandOmzet);
-						if (array_search($lesson->getDate(), $usedDates) === false) {
-							array_push($usedDates, $lesson->getDate());
+						
+						$searchDate = new DateTime();
+						$searchDate->setDate($lesson->getDate()->format('Y'),$lesson->getDate()->format('m'),'1');
+						$searchDate->setTime(0,0,0);
+					
+						$maandOmzet = new MaandOmzet($searchDate, $omzet);
+						
+						if(array_search($searchDate, $usedDates) === False){
+							
+							array_push($maandOmzetten, $maandOmzet);
+							array_push($usedDates, $searchDate);
+							
+						}else{
+						
+							for($i = 0; $i < count($maandOmzetten); $i++){
+								
+								if($maandOmzetten[$i]->getDate() == $searchDate){
+									$maandOmzetten[$i]->setOmzet($maandOmzetten[$i]->getOmzet() + $omzet);
+								}
+							
+							}
+						
 						}
-					}
 					
 				}
 			}
 			
-			dump($maandOmzetten);
-			dd($usedDates);
+			$start_date = new DateTime();
+			$start_date->setDate($curr_date->format('Y'),$curr_date->format('m'),'1');
+			$start_date->setTime(0,0,0);
+			$start_date->sub(new DateInterval('P12M'));
+			
+			$period = new DatePeriod(
+				$start_date,
+				new DateInterval('P1M'),
+				$curr_date
+			);
+			
+			$usedDates = [];
+			
+			foreach ($period as $key => $value) {
+				array_push($usedDates, $value);
+			}
+			
+			usort($usedDates, function($time1, $time2) {
+				if ($time1 < $time2)
+					return 1;
+				else if ($time1 > $time2)
+					return -1;
+				else
+					return 0;
+			});
+			
+			$maandOmzetTotaal = (object)array('usedDates' => $usedDates, 'maandOmzetten' => $maandOmzetten);
+			
+			return $maandOmzetTotaal;
 			
 		}
 		

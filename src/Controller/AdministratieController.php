@@ -8,6 +8,7 @@
 	use App\Entity\Registration;
 	use App\Entity\Training;
 	use App\Form\TrainingType;
+	use DateTime;
 	use Doctrine\ORM\EntityManagerInterface;
 	use MongoDB\Driver\Session;
 	use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -271,11 +272,17 @@
 		}
 		
 		/**
-		 * @Route("administratie/test", name="test")
+		 * @Route("administratie/omzet", name="omzet")
 		 */
 		public function test(EntityManagerInterface $em, Request $request, SessionInterface $session){
 			
-			$this->getUser()->getOmzet();
+			$person = $this->getDoctrine()->getRepository(Person::class)->findOneBy(array('id' => $request->get('id')));
+			
+			return $this->render('administratie\omzet.html.twig', [
+				
+				'inst' => $person
+			
+			]);
 			
 		}
 		

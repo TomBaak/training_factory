@@ -4,32 +4,28 @@
 	namespace App\classes;
 	
 	
+	use DateTime;
+	
 	class MaandOmzet
 	{
 		
-		private $datum = NULL;
+		private $date = NULL;
 		private $omzet = 0.0;
 		
-		public function __construct($datum, $omzet)
+		public function __construct($date, $omzet)
 		{
-			$this->setDatum($datum);
+			$this->setDate($date);
 			$this->setOmzet($omzet);
 		}
 		
-		/**
-		 * @return null
-		 */
-		public function getDatum()
+		public function getDate()
 		{
-			return $this->datum;
+			return $this->date;
 		}
 		
-		/**
-		 * @param null $datum
-		 */
-		public function setDatum($datum): void
+		public function setDate($date)
 		{
-			$this->datum = $datum;
+			$this->date = $date;
 		}
 		
 		/**
