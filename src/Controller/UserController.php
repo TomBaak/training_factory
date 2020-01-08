@@ -52,6 +52,10 @@
 		 */
 		public function editProfile($id, Request $request, EntityManagerInterface $em, Person $person, SessionInterface $session)
 		{
+			if($id != $this->getUser()->getId()){
+				return $this->redirectToRoute('noAccess');
+			}
+			
 			$person_current = $this->getDoctrine()->getRepository(Person::class)->findOneBy(array('id' => $id));
 			
 			if ($person == NULL) {

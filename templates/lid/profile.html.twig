@@ -1,5 +1,9 @@
 {% extends 'bezoeker.html.twig' %}
 
+{% block title %}
+    Profiel
+{% endblock %}
+
 {% block body %}
 
     <h1 class="text-secondary">Welkom {{ user.firstname }}</h1>
@@ -34,6 +38,6 @@
         {% endif %}
     </dl>
     <a class="badge badge-danger" href="{{ path('logout') }}">Uitloggen</a>
-    <a href="{{ path('profileEdit', {'id': user.id}) }}" class="badge badge-warning mb-3">Wijzig gegevens</a>
+    <a href="{{ path('profileEdit', { id: user.id }) }}" class="badge badge-warning mb-3">Wijzig gegevens</a>
 
 {% endblock %}

@@ -14,35 +14,63 @@
     {% endif %}
 
     {#   Makes the bar with the dates for the lessons#}
-    <ul class="nav nav-pills w-100 rounded mb-2 justify-content-center pl-2 pt-2 pr-2 pb-0 border mt-2">
+    <ul class="nav nav-pills w-100 rounded mb-2 justify-content-center pl-2 pt-2 pr-2 pb-0 border mt-2 d-none d-lg-flex">
         {% if subpage %}
             <li class="nav-item">
                 <a class="badge badge-pill badge-secondary ml-1 mr-1 text-decoration-none p-2 pl-3 pr-3 mb-2"
-                   href="{% if "ROLE_TRAINER" in app.user.getRoles %}{{ path('instructeur_lessen') }}{%else%}{{ path('inschrijvenOpLes') }}{%endif%}">Alle lessen</a>
+                   href="{% if "ROLE_TRAINER" in app.user.getRoles %}{{ path('instructeur_lessen') }}{% else %}{{ path('inschrijvenOpLes') }}{% endif %}">Alle
+                    lessen</a>
             </li>
         {% endif %}
         {% for date in dates %}
             {% if date == today_date %}
                 <li class="nav-item">
                     <a class="badge badge-pill badge-secondary ml-1 mr-1 text-decoration-none p-2 pl-3 pr-3 mb-2 {% if date == curr_date %}{{ "focus" }}{% endif %}"
-                       href="{% if "ROLE_TRAINER" in app.user.getRoles %}{{ path('instructeur_lessen', {date: date|date("d-m-Y")}) }}{%else%}{{ path('inschrijvenOpLes') }}{%endif%}">Vandaag</a>
+                       href="{% if "ROLE_TRAINER" in app.user.getRoles %}{{ path('instructeur_lessen', {date: date|date("d-m-Y")}) }}{% else %}{{ path('inschrijvenOpLes', {date: date|date("d-m-Y")}) }}{% endif %}">Vandaag</a>
                 </li>
             {% else %}
                 <li class="nav-item">
                     <a class="badge badge-pill badge-secondary ml-1 mr-1 text-decoration-none p-2 mb-2 {% if date == curr_date %}{{ "focus" }}{% endif %}"
-                       href="{% if "ROLE_TRAINER" in app.user.getRoles %}{{ path('instructeur_lessen', {date: date|date("d-m-Y")}) }}{%else%}{{ path('inschrijvenOpLes', {date: date|date("d-m-Y")}) }}{%endif%}">{{ date|date("l j M") }}</a>
+                       href="{% if "ROLE_TRAINER" in app.user.getRoles %}{{ path('instructeur_lessen', {date: date|date("d-m-Y")}) }}{% else %}{{ path('inschrijvenOpLes', {date: date|date("d-m-Y")}) }}{% endif %}">{{ date|date("l j M") }}</a>
                 </li>
             {% endif %}
         {% endfor %}
     </ul>
 
+    <ul class="d-block d-lg-none ml-0 pl-0 list-groups">
+        <a class="btn btn-secondary mt-2" data-toggle="collapse" href="#collapseDates" role="button" aria-expanded="false"
+           aria-controls="collapseExample">
+            Kies datum:
+        </a>
+        <div class="collapse mt-2" id="collapseDates">
+            {% if subpage %}
+                <a class="btn btn-secondary w-100 text-decoration-none p-2 pl-3 pr-3 mb-2"
+                   href="{% if "ROLE_TRAINER" in app.user.getRoles %}{{ path('instructeur_lessen') }}{% else %}{{ path('inschrijvenOpLes') }}{% endif %}">Alle
+                    lessen</a>
+            {% endif %}
+            {% set max_dates_phone = 7 %}
+            {% for date in dates %}
+                {% if max_dates_phone > 0 %}
+                    {% if date == today_date %}
+                        <a class="btn btn-secondary w-100 text-decoration-none p-2 pl-3 pr-3 mb-2 {% if date == curr_date %}{{ "focus" }}{% endif %}"
+                           href="{% if "ROLE_TRAINER" in app.user.getRoles %}{{ path('instructeur_lessen', {date: date|date("d-m-Y")}) }}{% else %}{{ path('inschrijvenOpLes', {date: date|date("d-m-Y")}) }}{% endif %}">Vandaag</a>
+                    {% else %}
+                        <a class="btn btn-secondary w-100 text-decoration-none p-2 mb-2 {% if date == curr_date %}{{ "focus" }}{% endif %}"
+                           href="{% if "ROLE_TRAINER" in app.user.getRoles %}{{ path('instructeur_lessen', {date: date|date("d-m-Y")}) }}{% else %}{{ path('inschrijvenOpLes', {date: date|date("d-m-Y")}) }}{% endif %}">{{ date|date("l j M") }}</a>
+                    {% endif %}
+                    {% set max_dates_phone = max_dates_phone - 1 %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </ul>
+
     {% if "ROLE_TRAINER" in app.user.getRoles %}
         {% if lessen == NULL %}
-            <h2 class="w-100 text-center m-5">U heeft nog geen lessen ingepland</h2>
+            <h2 class="w-100 text-center mt-5 mb-5">U heeft nog geen lessen ingepland</h2>
         {% endif %}
     {% else %}
         {% if lessen == NULL %}
-            <h2 class="w-100 text-center m-5">Er zijn geen lessen ingepland op deze dag</h2>
+            <h2 class="w-100 text-center mb-5 mt-5">Er zijn geen lessen ingepland op deze dag</h2>
         {% endif %}
     {% endif %}
 
@@ -52,7 +80,7 @@
             <div class="card mb-3 w-100">
                 <div class="row no-gutters">
                     <div class="col-md-2">
-                        <img src="{{ asset('img/banner2.jpg') }}" class="card-img h-100" alt="">
+                        <img src="{{ asset('img/banner2.jpg') }}" class="card-img h-100 d-none d-md-block alt="">
                     </div>
                     <div class="col-md-10">
                         <div class="card-body">
@@ -80,7 +108,7 @@
                                 <a class="btn btn-danger"
                                    href="{{ path('delete_lesson', {'id': les.id}) }}">Verwijder</a>
                                 <a class="btn btn-warning text-white" href="{{ path('edit_lesson', {'id': les.id}) }}">Wijzig</a>
-                                <a class="btn btn-dark text-white" href="{{ path('deelnemers', {'id': les.id}) }}">Lijst
+                                <a class="btn btn-dark text-white mt-1 mt-lg-0" href="{{ path('deelnemers', {'id': les.id}) }}">Lijst
                                     met
                                     deelnemers</a>
                             {% else %}
