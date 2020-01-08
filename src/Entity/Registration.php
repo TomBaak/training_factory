@@ -28,7 +28,7 @@ class Registration
     private $member;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Lesson", inversedBy="lesson")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Lesson", inversedBy="registrations")
      * @ORM\JoinColumn(nullable=false)
      */
     private $lesson;
