@@ -79,7 +79,23 @@
 				array_push($dates, $date);
 			}
 			
-			//TODO: Bug lessons arent sorted
+			usort($lessen, function($time1, $time2) {
+				if ($time1->getDate() < $time2->getDate())
+					return -1;
+				else if ($time1->getDate() > $time2->getDate())
+					return 1;
+				else
+					return 0;
+			});
+			
+			usort($lessen, function($time1, $time2) {
+				if ($time1->getTime() < $time2->getTime())
+					return -1;
+				else if ($time1->getTime() > $time2->getTime())
+					return 1;
+				else
+					return 0;
+			});
 			
 			return $this->render('lid/lessenAanbod.html.twig', [
 				

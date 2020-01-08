@@ -95,6 +95,10 @@
                                 Trainer: <span
                                         class="font-weight-bold text-secondary">{{ les.instructor.firstname }} {{ les.instructor.lastname }}</span>
                             </p>
+                            <p class="card-text text-muted">
+                                Locatie: <span
+                                        class="font-weight-bold text-secondary">{{ les.location }}</span>
+                            </p>
                             <p class="card-text text-muted mb-0">
                                 Aantal ingeschreven deelnemers: <span
                                         class="font-weight-bold text-secondary">{{ les.registrations|length }} </span>
@@ -103,6 +107,7 @@
                                 Maximaal aantal deelnemers: <span
                                         class="font-weight-bold text-secondary">{{ les.MaxPersons }}</span>
                             </p>
+
 
                             {% if "ROLE_TRAINER" in app.user.getRoles %}
                                 <a class="btn btn-danger"

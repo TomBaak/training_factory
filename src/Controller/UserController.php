@@ -139,6 +139,24 @@
 				array_push($dates, $date);
 			}
 			
+			usort($lessen, function($time1, $time2) {
+				if ($time1->getDate() < $time2->getDate())
+					return -1;
+				else if ($time1->getDate() > $time2->getDate())
+					return 1;
+				else
+					return 0;
+			});
+			
+			usort($lessen, function($time1, $time2) {
+				if ($time1->getTime() < $time2->getTime())
+					return -1;
+				else if ($time1->getTime() > $time2->getTime())
+					return 1;
+				else
+					return 0;
+			});
+			
 			return $this->render('lid/lessenAanbod.html.twig', [
 				
 				'user' => $this->getUser(),
@@ -184,7 +202,7 @@
 					
 				}
 				
-				if(count($lesson->getRegistrations()) <= $lesson->getMaxPersons()){
+				if(count($lesson->getRegistrations()) <= $lesson->getMaxPersons() == false){
 					$session->getFlashBag()->add(
 						'warning',
 						'Het maximaal aantal inschrijvingen is al bereikt! Controleer de beschikbaarheid later nog een keer.'

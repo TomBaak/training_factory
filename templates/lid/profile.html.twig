@@ -32,9 +32,8 @@
         {% elseif user.salary %}
             <dt>Datum in dienst treding:</dt>
             <dd>{{ user.hiringdate|date('d-m-Y') }}</dd>
-            <dt>Salaris:</dt>
-            <dt class="text-muted">Per maand</dt>
-            <dd>&euro;{{ user.salary }}</dd>
+            <dt>Salaris: <span class="font-weight-normal text-muted">Per maand</span></dt>
+            <dd>&euro; {{ user.salary }}</dd>
         {% endif %}
     </dl>
     <a class="badge badge-danger" href="{{ path('logout') }}">Uitloggen</a>
