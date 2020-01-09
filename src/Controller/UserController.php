@@ -76,6 +76,7 @@
 			if ($form->isSubmitted() && $form->isValid()) {
 				$person = $form->getData();
 				
+				$person->setLoginname($person->getFirstname() . $person->getLastname());
 				$em->persist($person);
 				$em->flush();
 				
