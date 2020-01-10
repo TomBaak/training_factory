@@ -19,7 +19,11 @@
         <div class="card mb-3 w-100">
             <div class="row no-gutters">
                 <div class="col-md-2">
-                    <img src="{{ asset('img/banner2.jpg') }}" class="card-img h-100 d-none d-md-block" alt="">
+                    {% if training.ImageFilename %}
+                    <img src="{{ asset('uploads/training_imgs/' ~ training.ImageFilename) }}" class="card-img h-100 d-none d-md-block" alt="">
+                        {% else %}
+                            <img src="{{ asset('img/logo.png') }}" class="card-img h-100 d-none d-md-block" alt="">
+                    {% endif %}
                 </div>
                 <div class="col">
                     <div class="card-body">

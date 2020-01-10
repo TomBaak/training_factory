@@ -14,6 +14,7 @@
 	use Doctrine\ORM\EntityManagerInterface;
 	use MongoDB\Driver\Session;
 	use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+	use Symfony\Component\HttpFoundation\File\Exception\FileException;
 	use Symfony\Component\HttpFoundation\Request;
 	use Symfony\Component\HttpFoundation\Response;
 	use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -73,8 +74,34 @@
 			
 			$form->handleRequest($request);
 			
+			$training = $form->getData();
+			
 			if($form->isSubmitted() && $form->isValid()){
-				$training = $form->getData();
+				
+				$imageFile = $form['image_filename']->getData();
+				
+				if ($imageFile) {
+					$originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+					$safeFilename = $originalFilename;
+					$newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+					
+					// Move the file to the directory where brochures are stored
+					try {
+						$imageFile->move(
+							$this->getParameter('training_image_directory'),
+							$newFilename
+						);
+					} catch (FileException $e) {
+						$session->getFlashBag()->add(
+							'error',
+							'Er ging iets mis. Probeer het later nog eens'
+						);
+						
+						return $this->redirectToRoute('administratie_trainingen');
+					}
+					
+					$training->setImageFilename($newFilename);
+				}
 				
 				$em->persist($training);
 				$em->flush();
@@ -108,6 +135,31 @@
 			
 			if($form->isSubmitted() && $form->isValid()){
 				$training = $form->getData();
+				
+				$imageFile = $form['image_filename']->getData();
+				
+				if ($imageFile) {
+					$originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+					$safeFilename = $originalFilename;
+					$newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+					
+					// Move the file to the directory where brochures are stored
+					try {
+						$imageFile->move(
+							$this->getParameter('training_image_directory'),
+							$newFilename
+						);
+					} catch (FileException $e) {
+						$session->getFlashBag()->add(
+							'error',
+							'Er ging iets mis. Probeer het later nog eens'
+						);
+						
+						return $this->redirectToRoute('administratie_trainingen');
+					}
+					
+					$training->setImageFilename($newFilename);
+				}
 				
 				$em->persist($training);
 				$em->flush();

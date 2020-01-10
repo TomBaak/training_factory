@@ -80,34 +80,44 @@
             <div class="card mb-3 w-100">
                 <div class="row no-gutters">
                     <div class="col-md-2">
-                        <img src="{{ asset('img/banner2.jpg') }}" class="card-img h-100 d-none d-md-block alt="">
+                        {% if les.training.ImageFilename %}
+                            <img src="{{ asset('uploads/training_imgs/' ~ les.training.ImageFilename) }}" class="card-img h-100 d-none d-md-block" alt="">
+                        {% else %}
+                            <img src="{{ asset('img/logo.png') }}" class="card-img h-100 d-none d-md-block" alt="">
+                        {% endif %}
                     </div>
-                    <div class="col-md-10">
+                    <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title">{{ les.training.name }} <span
                                         class="text-muted">{{ les.date|date('j F Y') }}</span></h5>
-                            <p class="card-text">{{ les.training.description }}</p>
+                            <p class="card-text mb-1">{{ les.training.description }}</p>
                             <p class="card-text text-muted mb-0">
                                 Tijd: <span
                                         class="font-weight-bold text-secondary">{{ les.time|date("H:i") }}</span>
                             </p>
                             <p class="card-text text-muted mb-0">
-                                Trainer: <span
-                                        class="font-weight-bold text-secondary">{{ les.instructor.firstname }} {{ les.instructor.lastname }}</span>
-                            </p>
-                            <p class="card-text text-muted">
                                 Locatie: <span
                                         class="font-weight-bold text-secondary">{{ les.location }}</span>
                             </p>
-                            <p class="card-text text-muted mb-0">
-                                Aantal ingeschreven deelnemers: <span
-                                        class="font-weight-bold text-secondary">{{ les.registrations|length }} </span>
-                            </p>
-                            <p class="card-text text-muted">
-                                Maximaal aantal deelnemers: <span
-                                        class="font-weight-bold text-secondary">{{ les.MaxPersons }}</span>
-                            </p>
-
+                            <div class="dropdown mt-1 mb-2">
+                                <a class="badge badge-pill badge-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Meer info
+                                </a>
+                                <div class="dropdown-menu p-3" aria-labelledby="dropdownMenuButton">
+                                    <p class="card-text text-muted mb-0">
+                                        Trainer: <span
+                                                class="font-weight-bold text-secondary">{{ les.instructor.firstname }} {{ les.instructor.lastname }}</span>
+                                    </p>
+                                    <p class="card-text text-muted mb-0">
+                                        Aantal ingeschreven deelnemers: <span
+                                                class="font-weight-bold text-secondary">{{ les.registrations|length }} </span>
+                                    </p>
+                                    <p class="card-text text-muted">
+                                        Maximaal aantal deelnemers: <span
+                                                class="font-weight-bold text-secondary">{{ les.MaxPersons }}</span>
+                                    </p>
+                                </div>
+                            </div>
 
                             {% if "ROLE_TRAINER" in app.user.getRoles %}
                                 <a class="btn btn-danger"
@@ -117,7 +127,7 @@
                                     met
                                     deelnemers</a>
                             {% else %}
-                                <a class="card-link btn btn-outline-success"
+                                <a class="card-link btn btn-outline-success mt-3"
                                    href="{{ path('nieuweInschrijving', {id: les.id}) }}">Inschrijven op deze les</a>
                             {% endif %}
                         </div>

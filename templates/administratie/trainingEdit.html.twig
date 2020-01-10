@@ -25,7 +25,8 @@
     <p class="text-muted">Tijd in minuten</p>
     {{ form_row(trainingForm.costs) }}
     <p class="text-muted">Wanneer de training gratis is vul niks in</p>
-    <input type="submit" class="btn btn-warning w-100 text-white" value="Wijzig Training">
+    {{ form_row(trainingForm.image_filename) }}
+    <input type="submit" class="btn btn-warning w-100 text-white mt-3" value="Wijzig Training">
     {{ form_widget(trainingForm) }}
 
 {% endblock %}
