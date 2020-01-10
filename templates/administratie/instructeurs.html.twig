@@ -34,12 +34,7 @@
                                                                                         href="mailto:{{ lid.emailaddress }}">{{ lid.emailaddress }}</a>
                             </li>
                             <li class="list-group-item"><a class="badge badge-dark" href="{{ path('lessenEmployee', {id: lid.id, type: 'trainer'}) }}">Bekijk lessen</a></li>
-                            <li class="list-group-item"><a class="badge badge-dark" href="{{ path('omzet', {id: lid.id}) }}">Bekijk omzet</a></li>
-                            {% if lid.isDisabled %}
-                                <li class="list-group-item"><a class="badge badge-success" href="{{ path('nonActiefToggle', {id: lid.id, prev_page: 'instructeurs'}) }}">Zet op actief</a>
-                                </li>{% else %}
-                                <li class="list-group-item"><a class="badge badge-danger" href="{{ path('nonActiefToggle', {id: lid.id, prev_page: 'instructeurs'}) }}">Zet op inactief</a>
-                                </li>{% endif %}
+                            <li class="list-group-item"><a class="badge badge-dark" href="{{ path('omzet', {id: lid.id}) }}">Bekijk omzet</a></li>F
                         </ul>
                     </div>
                 </div>

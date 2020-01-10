@@ -76,7 +76,7 @@
 			if ($form->isSubmitted() && $form->isValid()) {
 				$person = $form->getData();
 				
-				$person->setLoginname($person->getFirstname() . $person->getLastname());
+				$person->setLoginname(str_replace(' ', '', strtolower($person->getFirstname() . $person->getLastname())));
 				$em->persist($person);
 				$em->flush();
 				
@@ -274,6 +274,15 @@
 		{
 			
 			$registered_lessons = $this->getDoctrine()->getRepository(Registration::class)->findBy(array('member' => $this->getUser()->getId()));
+			
+			usort($registered_lessons, function($time1, $time2) {
+				if ($time1->getLesson()->getDate() > $time2->getLesson()->getDate())
+					return 1;
+				else if ($time1->getLesson()->getDate() < $time2->getLesson()->getDate())
+					return -1;
+				else
+					return 0;
+			});
 			
 			return $this->render('lid\inschrijvingen.hmtl.twig', [
 				
