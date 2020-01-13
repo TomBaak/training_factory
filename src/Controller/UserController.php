@@ -145,6 +145,10 @@
 					return -1;
 				else if ($time1->getDate() > $time2->getDate())
 					return 1;
+				else if ($time1->getTime() < $time2->getTime())
+					return -1;
+				else if ($time1->getTime() > $time2->getTime())
+					return 1;
 				else
 					return 0;
 			});
@@ -266,11 +270,15 @@
 			
 			$registered_lessons = $this->getDoctrine()->getRepository(Registration::class)->findBy(array('member' => $this->getUser()->getId()));
 			
-			usort($registered_lessons, function($time1, $time2) {
-				if ($time1->getLesson()->getDate() > $time2->getLesson()->getDate())
-					return 1;
-				else if ($time1->getLesson()->getDate() < $time2->getLesson()->getDate())
+			usort($lessen, function($time1, $time2) {
+				if ($time1->getDate() < $time2->getDate())
 					return -1;
+				else if ($time1->getDate() > $time2->getDate())
+					return 1;
+				else if ($time1->getTime() < $time2->getTime())
+					return -1;
+				else if ($time1->getTime() > $time2->getTime())
+					return 1;
 				else
 					return 0;
 			});

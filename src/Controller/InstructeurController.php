@@ -15,6 +15,7 @@
 	use Symfony\Component\HttpFoundation\Response;
 	use Symfony\Component\HttpFoundation\Session\SessionInterface;
 	use Symfony\Component\Routing\Annotation\Route;
+	use Symfony\Component\Validator\Constraints\Date;
 	
 	class InstructeurController extends AbstractController
 	{
@@ -84,6 +85,10 @@
 					return -1;
 				else if ($time1->getDate() > $time2->getDate())
 					return 1;
+				else if ($time1->getTime() < $time2->getTime())
+					return -1;
+				else if ($time1->getTime() > $time2->getTime())
+					return 1;
 				else
 					return 0;
 			});
@@ -110,6 +115,15 @@
 			
 			if ($form->isSubmitted() && $form->isValid()) {
 				$lesson = $form->getData();
+				
+				if($lesson->getDate() < new DateTime(date('Y-m-d'))){
+					$session->getFlashBag()->add(
+						'warning',
+						'Het is niet mogelijk om een les in het verleden aan te maken'
+					);
+					
+					return $this->redirectToRoute('instructeur_lessen_new');
+				}
 				
 				$lesson->setInstructor($this->getUser());
 				
