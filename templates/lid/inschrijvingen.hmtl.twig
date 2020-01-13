@@ -11,6 +11,7 @@
 
     {% if registrations %}
         {% for registration in registrations %}
+            {% if registration.lesson.date > curr_date %}
             <div class="card mb-3 w-100">
                 <div class="row no-gutters">
                     <div class="col">
@@ -43,6 +44,7 @@
                     </div>
                 </div>
             </div>
+            {% endif %}
         {% endfor %}
     {% else %}
 

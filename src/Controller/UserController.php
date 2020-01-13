@@ -270,22 +270,25 @@
 			
 			$registered_lessons = $this->getDoctrine()->getRepository(Registration::class)->findBy(array('member' => $this->getUser()->getId()));
 			
-			usort($lessen, function($time1, $time2) {
-				if ($time1->getDate() < $time2->getDate())
+			usort($registered_lessons, function($time1, $time2) {
+				if ($time1->getLesson()->getDate() < $time2->getLesson()->getDate())
 					return -1;
-				else if ($time1->getDate() > $time2->getDate())
+				else if ($time1->getLesson()->getDate() > $time2->getLesson()->getDate())
 					return 1;
-				else if ($time1->getTime() < $time2->getTime())
+				else if ($time1->getLesson()->getTime() < $time2->getLesson()->getTime())
 					return -1;
-				else if ($time1->getTime() > $time2->getTime())
+				else if ($time1->getLesson()->getTime() > $time2->getLesson()->getTime())
 					return 1;
 				else
 					return 0;
 			});
 			
+			
+			
 			return $this->render('lid\inschrijvingen.hmtl.twig', [
 				
-				'registrations' => $registered_lessons
+				'registrations' => $registered_lessons,
+				'curr_date' => new DateTime(date('Y-m-d'))
 			
 			]);
 			
