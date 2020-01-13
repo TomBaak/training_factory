@@ -24,7 +24,7 @@
 
                     {% if total.getDate() == date %}
                         <td>
-                            <p class="mb-0">
+                            <p class="mb-0 {% if total.getOmzet() > 0 %}{{ 'font-weight-bold' }}{% endif %}">
                                 &euro; {{ total.getOmzet()|number_format(2, ',', '.') }}</p></td>
                         {% set found = true %}
                     {% endif %}

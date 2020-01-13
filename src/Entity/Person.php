@@ -473,14 +473,14 @@
 				array_push($usedDates, $value);
 			}
 			
-			usort($lessen, function($time1, $time2) {
-				if ($time1->getDate() < $time2->getDate())
+			usort($usedDates, function($time1, $time2) {
+				if ($time1 < $time2)
 					return -1;
-				else if ($time1->getDate() > $time2->getDate())
+				else if ($time1 > $time2)
 					return 1;
-				else if ($time1->getTime() < $time2->getTime())
+				else if ($time1 < $time2)
 					return -1;
-				else if ($time1->getTime() > $time2->getTime())
+				else if ($time1 > $time2)
 					return 1;
 				else
 					return 0;
