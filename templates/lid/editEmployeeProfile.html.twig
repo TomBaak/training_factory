@@ -14,8 +14,8 @@
     {{ form_row(registrationForm.lastname) }}
     {{ form_row(registrationForm.dateofbirth) }}
     <hr class="bg-secondary">
-
+    {{ form_widget(registrationForm) }}
     <input type="submit" class="btn btn-warning w-100 text-white" value="Wijzig profiel">
     {{ form_end(registrationForm) }}
-    {{ form_widget(registrationForm) }}
+
 {% endblock %}

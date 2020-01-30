@@ -38,7 +38,8 @@
     </ul>
 
     <ul class="d-block d-lg-none ml-0 pl-0 list-groups">
-        <a class="btn btn-secondary mt-2" data-toggle="collapse" href="#collapseDates" role="button" aria-expanded="false"
+        <a class="btn btn-secondary mt-2" data-toggle="collapse" href="#collapseDates" role="button"
+           aria-expanded="false"
            aria-controls="collapseExample">
             Kies datum:
         </a>
@@ -68,10 +69,8 @@
         {% if lessen == NULL %}
             <h2 class="w-100 text-center mt-5 mb-5">U heeft nog geen lessen ingepland</h2>
         {% endif %}
-    {% else %}
-        {% if lessen == NULL %}
-            <h2 class="w-100 text-center mb-5 mt-5">Er zijn geen lessen ingepland op deze dag</h2>
-        {% endif %}
+    {% elseif lessen == NULL %}
+        <h2 class="w-100 text-center mb-5 mt-5">Er zijn geen lessen ingepland op deze dag</h2>
     {% endif %}
 
     {% for les in lessen %}
@@ -81,7 +80,8 @@
                 <div class="row no-gutters">
                     <div class="col-md-2">
                         {% if les.training.ImageFilename %}
-                            <img src="{{ asset('uploads/training_imgs/' ~ les.training.ImageFilename) }}" class="card-img h-100 d-none d-md-block" alt="">
+                            <img src="{{ asset('uploads/training_imgs/' ~ les.training.ImageFilename) }}"
+                                 class="card-img h-100 d-none d-md-block" alt="">
                         {% else %}
                             <img src="{{ asset('img/logo.png') }}" class="card-img h-100 d-none d-md-block" alt="">
                         {% endif %}
@@ -100,7 +100,9 @@
                                         class="font-weight-bold text-secondary">{{ les.location }}</span>
                             </p>
                             <div class="dropdown mt-1 mb-2">
-                                <a class="badge badge-pill badge-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="badge badge-pill badge-warning dropdown-toggle" type="button"
+                                   id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false">
                                     Meer info
                                 </a>
                                 <div class="dropdown-menu p-3" aria-labelledby="dropdownMenuButton">
@@ -123,7 +125,8 @@
                                 <a class="btn btn-danger"
                                    href="{{ path('delete_lesson', {'id': les.id}) }}">Verwijder</a>
                                 <a class="btn btn-warning text-white" href="{{ path('edit_lesson', {'id': les.id}) }}">Wijzig</a>
-                                <a class="btn btn-dark text-white mt-1 mt-lg-0" href="{{ path('deelnemers', {'id': les.id}) }}">Lijst
+                                <a class="btn btn-dark text-white mt-1 mt-lg-0"
+                                   href="{{ path('deelnemers', {'id': les.id}) }}">Lijst
                                     met
                                     deelnemers</a>
                             {% else %}
@@ -134,9 +137,8 @@
                     </div>
                 </div>
             </div>
+
         {% endif %}
     {% endfor %}
-
-
 
 {% endblock %}

@@ -20,7 +20,6 @@
                        role="button" aria-expanded="false" aria-controls="collapseExample{{ lid.id }}">
                         Meer info
                     </a>
-                    <a class="badge badge-danger" href="{{ path('gebruikerVerwijderen', {id: lid.id}) }}">Verwijder account</a>
                     <div class="collapse" id="collapseExample{{ lid.id }}">
                         <ul class="list-group-flush m-0 p-0">
                             <li class="list-group-item bg-transparent"><span
@@ -35,6 +34,8 @@
                             </li>
                             <li class="list-group-item"><a class="badge badge-dark" href="{{ path('lessenEmployee', {id: lid.id, type: 'trainer'}) }}">Bekijk lessen</a></li>
                             <li class="list-group-item"><a class="badge badge-dark" href="{{ path('omzet', {id: lid.id}) }}">Bekijk omzet</a></li>
+                            <li class="list-group-item"><a class="badge badge-warning" href="{{ path('profileEdit', {id: lid.id}) }}">Wijzig account</a>
+                                <a class="badge badge-danger" href="{{ path('gebruikerVerwijderen', {id: lid.id}) }}">Verwijder account</a></li>
                         </ul>
                     </div>
                 </div>

@@ -17,7 +17,8 @@
     {{ form_row(registrationForm.street) }}
     {{ form_row(registrationForm.postalcode) }}
     {{ form_row(registrationForm.place) }}
+    {{ form_widget(registrationForm) }}
     <input type="submit" class="btn btn-warning w-100 text-white" value="Wijzig profiel">
     {{ form_end(registrationForm) }}
-    {{ form_widget(registrationForm) }}
+
 {% endblock %}

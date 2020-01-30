@@ -7,6 +7,7 @@
 	use App\Entity\Lesson;
 	use App\Entity\Person;
 	use App\Entity\Registration;
+	use App\Form\AdminEmployeeEditType;
 	use App\Form\EmployeeEditType;
 	use App\Form\LessonType;
 	use App\Form\PersonEditType;
@@ -52,7 +53,8 @@
 		 */
 		public function editProfile($id, Request $request, EntityManagerInterface $em, Person $person, SessionInterface $session)
 		{
-			if($id != $this->getUser()->getId()){
+			
+			if($id != $this->getUser()->getId() && in_array("ROLE_ADMIN", $this->getUser()->getRoles()) === false){
 				return $this->redirectToRoute('noAccess');
 			}
 			
@@ -62,7 +64,10 @@
 				return $this->redirectToRoute('profile');
 			}
 			
-			if (in_array("ROLE_TRAINER", $this->getUser()->getRoles()) || in_array("ROLE_TRAINER", $this->getUser()->getRoles())) {
+			if (in_array("ROLE_ADMIN", $this->getUser()->getRoles()) && $id != $this->getUser()->getId()) {
+				$form = $this->createForm(AdminEmployeeEditType::class, $person);
+				$editTemplate = 'lid/editEmployeeProfile.html.twig';
+			}elseif(in_array("ROLE_TRAINER", $this->getUser()->getRoles()) || in_array("ROLE_ADMIN", $this->getUser()->getRoles())){
 				$form = $this->createForm(EmployeeEditType::class, $person);
 				$editTemplate = 'lid/editEmployeeProfile.html.twig';
 			} else {

@@ -336,7 +336,7 @@
 			
 			$session->getFlashBag()->add(
 				'success',
-				'Account instructeur is verwijderd'
+				'Account is verwijderd'
 			);
 			
 			return $this->redirectToRoute('instructeurs');
